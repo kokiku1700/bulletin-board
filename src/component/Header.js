@@ -1,12 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { styled } from "styled-components";
-import Tenada from "../fonts/Tenada.ttf";
-import lightMode from "../img/lightMode.png";
 import Logo from "./Logo";
 
 const Header = () => {
     const location = useLocation();
-    if ( location.pathname === "/Login" ) return null;
+    if ( location.pathname === "/Login" || 
+        location.pathname === "/JoinMem" ) return null;
 
     return (
         <DivWrap>
@@ -14,13 +13,7 @@ const Header = () => {
                 <Logo />
             </Div>
             <Div $justifycontent="center" width="30">
-                <Img src={lightMode} alt="lightMode" />
-                <StyledLink to='/Login' 
-                            fontFamily='Tenada' 
-                            fontSize="1.2vw" 
-                            color="black" >
-                                로그인
-                </StyledLink>
+                <StyledLink to='/Login' >로그인</StyledLink>
             </Div>
         </DivWrap>
     )
@@ -40,26 +33,18 @@ const Div = styled.div`
     justify-content: ${props => props.$justifycontent};
     align-items: center;
 `
-const Img = styled.img`
-    width: 2.7vw;
-    cursor: pointer;
-`
 
 const StyledLink = styled(Link)`
 
-    @font-face {
-        font-family: 'Tenada';
-        src: url(${Tenada}) format('woff2');
-        font-weight: 100;
-        font-style: normal;
-    }
-
-    font-family: ${props => props.fontFamily};
+    font-family: Arial;
     text-decoration: none;
-    font-size: ${props => props.fontSize};
+    font-size: 1.2vw;
     margin: 0 5%;
-    color: ${props => props.color};
-    
+    color: white;
+    background: violet;
+    padding: 3% 8%;
+    border-radius: 5px;
+    vertical-align: middle;
 `;
 
 export default Header;

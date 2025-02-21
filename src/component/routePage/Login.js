@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Logo from "./Logo";
+import Logo from "../Logo";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -55,14 +55,14 @@ const Input = styled.input`
     width: 20vw;
     padding: 3% 1%;
     margin: 2%;
-    border-radius: 12px;
     border: none;
-    color: white;
+    border-bottom: 1px solid #aaa;
+    color: black;
     font-size: 1vw;
-    background: #DCDCDC;
 
     &:focus {
-        outline: 2px solid violet;
+        outline: none;
+        border-bottom: 2px solid violet;
     }
 `;
 
@@ -76,12 +76,20 @@ const Button = styled.button`
     background: violet;
     color: white;
     cursor: pointer;
+
+    &:hover {
+        background: #FD65E9;
+    }
 `;
 
 const StyledLink = styled(Link)`
     text-decoration: none;
     color: black;
     margin: 0 1%;
+
+    &:hover {
+    color: violet;
+    }
 `;
 
 const Span = styled.span`

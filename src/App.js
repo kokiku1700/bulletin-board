@@ -1,12 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Login from './component/Login';
+import Login from './component/routePage/Login';
 import Header from "./component/Header"
 import Main from './component/Main';
-import IdSearch from './component/IdSearch';
-import PwSearch from './component/PwSearch';
-import JoinMem from './component/JoinMem';
-
+import IdSearch from './component/routePage/IdSearch';
+import PwSearch from './component/routePage/PwSearch';
+import JoinMem from './component/routePage/JoinMem';
+import ThemeChange from './component/ThemeChange';
+import Write from './component/Write';
+import PostWrite from './component/routePage/PostWrite';
 
 function App() {
 
@@ -19,7 +21,10 @@ function App() {
         <Route path='/IdSearch' element={<IdSearch />} />
         <Route path='/PwSearch' element={<PwSearch />} />
         <Route path='/JoinMem' element={<JoinMem />} />
+        <Route path='/PostWrite' element={<PostWrite />} />
       </Routes>
+      <ThemeChange />
+      <Write />
     </div>
   );
 }
