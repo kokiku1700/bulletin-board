@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Login from './component/routePage/Login';
 import Header from "./component/Header"
-import Main from './component/Main';
+import Main from './component/routePage/Main';
 import IdSearch from './component/routePage/IdSearch';
 import PwSearch from './component/routePage/PwSearch';
 import JoinMem from './component/routePage/JoinMem';

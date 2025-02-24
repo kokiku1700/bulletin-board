@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { styled } from "styled-components";
 import Logo from "./Logo";
+import { breakPoints } from "../ease/media";
 
 const Header = () => {
     const location = useLocation();
@@ -45,6 +46,21 @@ const StyledLink = styled(Link)`
     padding: 3% 8%;
     border-radius: 5px;
     vertical-align: middle;
+
+    @media (max-width: 1400px) {
+        font-size: 2vw;
+        padding: 3% 8%;
+    }
+    
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        font-size: 2vw;
+        padding: 3% 8%;
+    }
+
+    @media (max-width: ${breakPoints.tablet}) {
+        font-size: 2.3vw;
+        padding: 5% 12%;
+    }
 `;
 
 export default Header;

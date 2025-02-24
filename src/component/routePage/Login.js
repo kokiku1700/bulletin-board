@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Logo from "../Logo";
 import { Link } from "react-router-dom";
+import { breakPoints } from "../../ease/media";
 
 const Login = () => {
 
@@ -12,7 +13,7 @@ const Login = () => {
             <Logo />
 
             <Div $flexDirection="column"
-                 $border="1px solid violet"
+                 $border="2px solid violet"
                  $width="30vw"
                  $paddingTop="5"
                  $paddingBottom="5" 

@@ -8,13 +8,14 @@ const JoinMem = () => {
         <DivWrap>
             <Logo />
             <Div>
-                <Input placeholder="이름" type="id" />
-                <Input placeholder="닉네임" />
-                <Input placeholder="아이디" />
-                <Input placeholder="비밀번호" />
-                <Input placeholder="비밀번호 확인" />
-                <Input placeholder="이메일" />
-                <Input placeholder="휴대전화번호" />
+                <h2>회원가입</h2>
+                <Input type="name" placeholder="이름" />
+                <Input type="name" placeholder="닉네임" />
+                <Input type="id" placeholder="아이디" />
+                <Input type="password" placeholder="비밀번호" />
+                <Input type="password" placeholder="비밀번호 확인" />
+                <Input type="email" placeholder="이메일" />
+                <Button>확인</Button>
             </Div>
         </DivWrap>
     )
@@ -36,16 +37,16 @@ const Div = styled.div`
     align-items: center;
     flex-direction: column;
     width: 45%;
-    border: 1px solid violet;
+    border: 2px solid violet;
     margin-top: 1%;
     padding: 2%;
 `;
 
 const Input = styled.input`
     margin: 2% 1%;
-    width: 60%;
+    width: 70%;
     border: none;
-    padding: 2% 0;
+    padding: 2% 2%;
     border-bottom: 1px solid #999;
     font-size: 1vw;
 
@@ -53,6 +54,16 @@ const Input = styled.input`
         outline: none;
         border-bottom: 2px solid violet;
     }
+`;
+
+const Button = styled.button`
+    background: violet;
+    color: white;
+    font-size: 1vw;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 1.5% 4%;
 `
 
 export default JoinMem;

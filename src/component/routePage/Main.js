@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import LeftCategory from "./LeftCategory";
+import LeftCategory from "../LeftCategory";
 
 const Main = () => {
 
