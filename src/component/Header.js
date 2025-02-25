@@ -47,7 +47,7 @@ const StyledLink = styled(Link)`
     border-radius: 5px;
     vertical-align: middle;
 
-    @media (max-width: 1400px) {
+    @media (max-width: ${breakPoints.big}) {
         font-size: 2vw;
         padding: 3% 8%;
     }

@@ -23,7 +23,7 @@ const StyledLink = styled(Link)`
 
     font-family: 'BagelFatOne-Regular';
     text-decoration: none;
-    font-size: 3.2vw;
+    font-size: 3.7vw;
     margin: 0 5%;
     color: violet;
     text-shadow: 2px 2px 0 #999;
@@ -32,15 +32,18 @@ const StyledLink = styled(Link)`
         color: #FD65E9;
     }
 
-    @media (max-width: 1400px) {
-        font-size: 4.5vw;
+    @media (max-width: ${breakPoints.big}) {
+        font-size: 4.7vw;
     }
 
     @media (max-width: ${breakPoints.largeDesktop}) {
-        font-size: 5vw;
+        font-size: 5.7vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        font-size: 6.7vw;
     }
     @media (max-width: ${breakPoints.tablet}) {
-        font-size: 6vw;
+        font-size: 7.7vw;
     }
 `;
 

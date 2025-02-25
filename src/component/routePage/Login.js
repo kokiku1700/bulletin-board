@@ -6,18 +6,9 @@ import { breakPoints } from "../../ease/media";
 const Login = () => {
 
     return (
-        <Div $flexDirection="column"
-             $paddingTop="5" 
-             $width="75vw">
-            
+        <Div>
             <Logo />
-
-            <Div $flexDirection="column"
-                 $border="2px solid violet"
-                 $width="30vw"
-                 $paddingTop="5"
-                 $paddingBottom="5" 
-                 $marginTop="5" >
+            <InputDiv>
                 {/* 로그인 아이디 */}
                 <Input placeholder="아이디" />
                 {/* 로그인 비밀번호 */}
@@ -25,37 +16,81 @@ const Login = () => {
             
                 <Button>로그인</Button>
 
-                <Div $flexDirection="row"
-                     $marginTop="5"
-                     $width="100%">
+                <LinkDiv>
                     <StyledLink to="/IdSearch" >아이디 찾기</StyledLink>
                     <Span>|</Span>
                     <StyledLink to="/PwSearch" >비밀번호 찾기</StyledLink>
                     <Span>|</Span>
                     <StyledLink to="/JoinMem" >회원가입</StyledLink>
-                </Div>
-            </Div>
+                </LinkDiv>
+            </InputDiv>
         </Div>
     )
 };
 
 const Div = styled.div`
     display: flex;
-    flex-direction: ${props => props.$flexDirection};
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: ${props => props.$width};
+    width: 75vw;
     margin: 0 auto;
-    padding-top: ${props => props.$paddingTop}%;
-    padding-bottom: ${props => props.$paddingBottom}%;
-    border: ${props => props.$border};
-    margin-top: ${props=> props.$marginTop}%;
+    padding-top: 5%;
+
+    
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        margin-top: 5%;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        margin-top: 12%;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        margin-top: 17%;
+    }
+`;
+
+const InputDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    margin: 0 auto;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-top: 5%;
+    border: 2px solid violet;
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 45vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 50vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 60vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 70vw;
+    }
+    @media (max-width: ${breakPoints.mobile}) {
+        width: 60vw;
+    }
+`
+
+const LinkDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 5%;
 `;
 
 const Input = styled.input`
     width: 20vw;
     padding: 3% 1%;
-    margin: 2%;
+    margin: 3%;
     border: none;
     border-bottom: 1px solid #aaa;
     color: black;
@@ -65,12 +100,29 @@ const Input = styled.input`
         outline: none;
         border-bottom: 2px solid violet;
     }
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 25vw;
+        font-size: 1.3vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 30vw;
+        font-size: 1.5vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 35vw;
+        font-size: 1.8vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 40vw;
+        font-size: 2.1vw;
+    }
 `;
 
 const Button = styled.button`
     width:20.5vw;
     padding: 2% 1%;
-    margin: 3%;
+    margin: 4%;
     border-radius: 12px;
     font-size: 1vw;
     border: none;
@@ -80,6 +132,23 @@ const Button = styled.button`
 
     &:hover {
         background: #FD65E9;
+    }
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 25.5vw;
+        font-size: 1.3vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 30.5vw;
+        font-size: 1.5vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 35.5vw;
+        font-size: 1.8vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 40.5vw;
+        font-size: 2.1vw;
     }
 `;
 

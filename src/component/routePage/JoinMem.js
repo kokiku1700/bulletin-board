@@ -1,20 +1,36 @@
 import styled from "styled-components";
 import Logo from "../Logo";
+import { useState } from "react";
 
 
 const JoinMem = () => {
+    const [member, setMember] = useState({
+        name: "",
+        nickName: "",
+        id: "",
+        password: "",
+        email: ""
+    });
+
+    const handleOnChange = (e) => {
+
+        setMember({
+            ...member,
+            [e.target.name]: e.target.value,
+        });
+    }
 
     return (
         <DivWrap>
             <Logo />
             <Div>
                 <h2>회원가입</h2>
-                <Input type="name" placeholder="이름" />
-                <Input type="name" placeholder="닉네임" />
-                <Input type="id" placeholder="아이디" />
+                <Input type="name" name="name" value={member.name} onChange={handleOnChange} placeholder="이름" />
+                <Input type="name" name="nickName" value={member.nickName} onChange={handleOnChange} placeholder="닉네임" />
+                <Input type="id" name="id" value={member.id} onChange={handleOnChange} placeholder="아이디" />
                 <Input type="password" placeholder="비밀번호" />
-                <Input type="password" placeholder="비밀번호 확인" />
-                <Input type="email" placeholder="이메일" />
+                <Input type="password" name="password" value={member.password} onChange={handleOnChange} placeholder="비밀번호 확인" />
+                <Input type="email" name="email" value={member.email} onChange={handleOnChange} placeholder="이메일" />
                 <Button>확인</Button>
             </Div>
         </DivWrap>

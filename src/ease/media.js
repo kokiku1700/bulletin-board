@@ -2,5 +2,6 @@ export const breakPoints = {
     mobile: "576px",
     tablet: "768px",
     desktop: "992px",
-    largeDesktop: "1200px"
+    largeDesktop: "1200px",
+    big: "1500px"
 };
