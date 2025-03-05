@@ -9,8 +9,15 @@ import JoinMem from './component/routePage/JoinMem';
 import ThemeChange from './component/ThemeChange';
 import Write from './component/Write';
 import PostWrite from './component/routePage/PostWrite';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(() => {
+    fetch("http://localhost:4000/api")
+      .then(res => res.json())
+      .then(data => console.log(data));
+  })
 
   return (
     <div className="App">
