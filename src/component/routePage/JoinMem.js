@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Logo from "../Logo";
 import { useState } from "react";
-
+import axios from "axios";
 
 const JoinMem = () => {
     const [member, setMember] = useState({
@@ -11,15 +11,23 @@ const JoinMem = () => {
         password: "",
         email: ""
     });
+    const [pwCheck, setPwCheck] = useState("");
 
     const handleOnChange = (e) => {
-
         setMember({
             ...member,
             [e.target.name]: e.target.value,
         });
+        console.log(member)
+    };
+
+    const handleOnPwCheck = (e) => {
+        setPwCheck(e.target.value);
     }
 
+    const handleOnSubmit = () => {
+        
+    }
     return (
         <DivWrap>
             <Logo />
@@ -28,8 +36,8 @@ const JoinMem = () => {
                 <Input type="name" name="name" value={member.name} onChange={handleOnChange} placeholder="이름" />
                 <Input type="name" name="nickName" value={member.nickName} onChange={handleOnChange} placeholder="닉네임" />
                 <Input type="id" name="id" value={member.id} onChange={handleOnChange} placeholder="아이디" />
-                <Input type="password" placeholder="비밀번호" />
-                <Input type="password" name="password" value={member.password} onChange={handleOnChange} placeholder="비밀번호 확인" />
+                <Input type="password" name="password" value={member.password} onChange={handleOnChange} placeholder="비밀번호" />
+                <Input type="password" name="passwordCheck" value={pwCheck} onChange={handleOnPwCheck} placeholder="비밀번호 확인" />
                 <Input type="email" name="email" value={member.email} onChange={handleOnChange} placeholder="이메일" />
                 <Button>확인</Button>
             </Div>
