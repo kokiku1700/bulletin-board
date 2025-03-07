@@ -18,16 +18,27 @@ const JoinMem = () => {
             ...member,
             [e.target.name]: e.target.value,
         });
-        console.log(member)
     };
 
     const handleOnPwCheck = (e) => {
         setPwCheck(e.target.value);
+
+        if ( member.password !== pwCheck ) {
+            console.log("Not Password!!")
+        }
     }
 
     const handleOnSubmit = () => {
-        
-    }
+        axios
+            .post("http://localhost:4000/api", member)
+            .then(res =>{
+                console.log("success");
+            })
+            .catch(err => {
+                console.error("fail");
+            });
+    };
+
     return (
         <DivWrap>
             <Logo />
@@ -39,7 +50,7 @@ const JoinMem = () => {
                 <Input type="password" name="password" value={member.password} onChange={handleOnChange} placeholder="비밀번호" />
                 <Input type="password" name="passwordCheck" value={pwCheck} onChange={handleOnPwCheck} placeholder="비밀번호 확인" />
                 <Input type="email" name="email" value={member.email} onChange={handleOnChange} placeholder="이메일" />
-                <Button>확인</Button>
+                <Button onClick={handleOnSubmit}>확인</Button>
             </Div>
         </DivWrap>
     )
