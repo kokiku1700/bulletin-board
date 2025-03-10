@@ -2,19 +2,45 @@ import styled from "styled-components";
 import Logo from "../Logo";
 import { Link } from "react-router-dom";
 import { breakPoints } from "../../ease/media";
+import axios from "axios";
+import { useState } from "react";
 
 const Login = () => {
+    const [inputId, setInputId] = useState("");
+    const [inputPw, setInputPw] = useState("");
+
+    const handleOnChangeId = (e) => {
+        setInputId(e.target.value);
+        console.log(e.target.value);
+    };
+
+    const handleOnChangePw = (e) => {
+        setInputPw(e.target.value);
+        console.log(e.target.value);
+    };
+
+    const handleOnSubmit = async() => {
+        await axios.get("http://localhost:4000/api", {
+            id: inputId,
+            pw: inputPw
+        })
+        .then(res => {
+            console.log(res.data);
+        })
+
+    }
+
 
     return (
         <Div>
             <Logo />
             <InputDiv>
                 {/* 로그인 아이디 */}
-                <Input placeholder="아이디" />
+                <Input placeholder="아이디" value={inputId} onChange={handleOnChangeId} />
                 {/* 로그인 비밀번호 */}
-                <Input placeholder="비밀번호" />
+                <Input placeholder="비밀번호" value={inputPw} onChange={handleOnChangePw} />
             
-                <Button>로그인</Button>
+                <Button onClick={handleOnSubmit}>로그인</Button>
 
                 <LinkDiv>
                     <StyledLink to="/IdSearch" >아이디 찾기</StyledLink>

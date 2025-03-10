@@ -6,7 +6,8 @@ import { breakPoints } from "../ease/media";
 const Header = () => {
     const location = useLocation();
     if ( location.pathname === "/Login" || 
-        location.pathname === "/JoinMem" ) return null;
+        location.pathname === "/JoinMem" ||
+        location.pathname === "/Success" ) return null;
 
     return (
         <DivWrap>

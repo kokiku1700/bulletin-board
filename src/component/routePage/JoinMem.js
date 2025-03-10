@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Logo from "../Logo";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const JoinMem = () => {
     const [member, setMember] = useState({
@@ -12,6 +13,7 @@ const JoinMem = () => {
         email: ""
     });
     const [pwCheck, setPwCheck] = useState("");
+    const navigate = useNavigate();
 
     const handleOnChange = (e) => {
         setMember({
@@ -32,11 +34,14 @@ const JoinMem = () => {
         axios
             .post("http://localhost:4000/api", member)
             .then(res =>{
+                console.log(res);
                 console.log("success");
+                navigate("/Success", {replace: true});
             })
             .catch(err => {
                 console.error("fail");
             });
+            
     };
 
     return (

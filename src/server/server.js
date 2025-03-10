@@ -13,7 +13,7 @@ app.use(cors());
 dbConnect();
 
 app.get("/api", (req, res) => {
-    res.send({ "message": "hi"});
+    res.send(req.body)
 });
 
 app.post("/api", (req, res) => {
