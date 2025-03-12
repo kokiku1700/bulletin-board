@@ -5,18 +5,35 @@ import { breakPoints } from "../ease/media";
 
 const Header = () => {
     const location = useLocation();
+    const loginStatus = localStorage.length;
+    const loginNickname = localStorage.getItem(localStorage.key(loginStatus - 1));
+
     if ( location.pathname === "/Login" || 
         location.pathname === "/JoinMem" ||
         location.pathname === "/Success" ) return null;
 
+    const handleOnClickLogout = () => {
+        localStorage.clear();
+    }
+    
     return (
         <DivWrap>
             <Div $justifycontent="flex-start" width="70">
                 <Logo />
             </Div>
-            <Div $justifycontent="center" width="30">
-                <StyledLink to='/Login' >로그인</StyledLink>
-            </Div>
+            {
+                loginStatus === 0 
+                    ?
+                    <Div $justifycontent="center" width="30">
+                        <StyledLink to='/Login' >로그인</StyledLink>
+                    </Div> 
+                    :
+                    <Div $justifycontent="center" width="30">
+                        <p>{loginNickname}</p>
+                        <StyledLink onClick={handleOnClickLogout} >로그아웃</StyledLink>
+                    </Div>
+            }
+            
         </DivWrap>
     )
 

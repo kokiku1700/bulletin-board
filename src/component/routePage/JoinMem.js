@@ -30,8 +30,8 @@ const JoinMem = () => {
         }
     }
 
-    const handleOnSubmit = () => {
-        axios
+    const handleOnSubmit = async() => {
+        await axios
             .post("http://localhost:4000/api", member)
             .then(res =>{
                 console.log(res);

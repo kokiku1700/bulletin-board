@@ -4,30 +4,30 @@ import { Link } from "react-router-dom";
 import { breakPoints } from "../../ease/media";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [inputId, setInputId] = useState("");
     const [inputPw, setInputPw] = useState("");
+    const navigate = useNavigate();
 
     const handleOnChangeId = (e) => {
         setInputId(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleOnChangePw = (e) => {
         setInputPw(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleOnSubmit = async() => {
-        await axios.get("http://localhost:4000/api", {
-            id: inputId,
-            pw: inputPw
-        })
+        await axios.post("http://localhost:4000/login", {id: inputId, pw: inputPw})
         .then(res => {
-            console.log(res.data);
+            if ( res.data.message === "success" ) {
+                localStorage.setItem(res.data.id, res.data.nickName);
+                navigate("/");
+            }
+            console.log(res.data)
         })
-
     }
 
 
@@ -36,9 +36,9 @@ const Login = () => {
             <Logo />
             <InputDiv>
                 {/* 로그인 아이디 */}
-                <Input placeholder="아이디" value={inputId} onChange={handleOnChangeId} />
+                <Input placeholder="아이디" type="id" value={inputId} onChange={handleOnChangeId} />
                 {/* 로그인 비밀번호 */}
-                <Input placeholder="비밀번호" value={inputPw} onChange={handleOnChangePw} />
+                <Input placeholder="비밀번호" type="password" value={inputPw} onChange={handleOnChangePw} />
             
                 <Button onClick={handleOnSubmit}>로그인</Button>
 
