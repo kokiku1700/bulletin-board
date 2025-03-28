@@ -16,10 +16,9 @@ app.get("/api", (req, res) => {
     res.send(req.body);
 });
 
-app.post("/api", (req, res) => {
+app.post("/joinMem", (req, res) => {
     const user = new User(req.body);
     user.save();
-    res.send({message: "success!!!!!!!!!"});
 });
 
 app.post("/login", (req, res) => {
