@@ -12,15 +12,71 @@ const JoinMem = () => {
         password: "",
         email: ""
     });
+    const [visibleP, setVisibleP] = useState({
+        vName: {
+            content: "",
+            visible: "none",
+        },
+        vNickname: {
+            content: "",
+            visible: "none",
+        },
+        vId: {
+            content: "",
+            visible: "none",
+        },
+        vPassword: {
+            content: "",
+            visible: "none",
+        },
+        vPasswordCheck: {
+            content: "",
+            visible: "none",
+        },
+        vEmail: {
+            content: "",
+            visible: "none",
+        },
+    });
     const [pwCheck, setPwCheck] = useState("");
     const [changeSpan, setChangeSpan] = useState({
-        cName: {n: 0, bool: false, color: "#999", fontSize: "16px", fontWeight: "100", borderSize: "1px"},
-        cNickName: {n: 1, bool: false, color: "#999", fontSize: "16px", fontWeight: "100", borderSize: "1px"},
-        cId: {n: 2, bool: false, color: "#999", fontSize: "16px", fontWeight: "100", borderSize: "1px"},
-        cPassword: {n: 3, bool: false, color: "#999", fontSize: "16px", fontWeight: "100", borderSize: "1px"},
-        cPasswordCheck: {n: 4, bool: false, color: "#999", fontSize: "16px", fontWeight: "100", borderSize: "1px"},
-        cEmail: {n: 5, bool: false, color: "#999", fontSize: "16px", fontWeight: "100", borderSize: "1px"}
+        cName: {n: 0, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"},
+        cNickName: {n: 1, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"},
+        cId: {n: 2, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"},
+        cPassword: {n: 3, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"},
+        cPasswordCheck: {n: 4, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"},
+        cEmail: {n: 5, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
     });
+    const pContent = {
+        coName: {
+            c1: "2 ~ 18자의 한글로 입력해주세요.",
+            c2: "이름을 입력해주세요.",
+            c3: "이미 회원가입된 계정이 있습니다."
+        },
+        coNickName: {
+            c1: "2 ~ 16자의 영문이나 한글, 숫자로 입력해주세요.",
+            c2: "닉네임을 입력해주세요.",
+            c3: "동일한 닉네임이 존재합니다."
+        },
+        coId: {
+            c1: "8 ~ 16자의 영문과 숫자로 입력해주세요.",
+            c2: "아이디를 입력해주세요.",
+            c3: "동일한 아이디가 존재합니다."
+        },
+        coPassword: {
+            c1: "8 ~ 18자의 소문자, 대문자, 숫자, 특수기호를 포함해 입력해주세요.",
+            c2: "비밀번호를 입력해주세요.",
+        },
+        coPasswordCheck: {
+            c1: "비밀번호가 동일하지 않습니다.",
+            c2: "비밀번호 확인을 입력해주세요.",
+        },
+        coEmail: {
+            c1: "2 ~ 18자의 한글로 입력해주세요.",
+            c2: "이메일을 입력해주세요.",
+            c3: "동일한 이메일이 존재합니다."
+        }
+    };
     const navigate = useNavigate();
     const inputRef = useRef([]);
 
@@ -41,50 +97,157 @@ const JoinMem = () => {
     // 사용하는 것도 좋아 보였다. 하지만 지금 변경하기에는 많이
     // 진행한 상태라 일단 이 방식을 사용하고 나중에 다른 프로젝트에서
     // 비슷한 이벤트를 만들 때 useEffect를 사용할 예정이다.)
-    const handleOnBlur = (e) => {
+    const handleOnBlur = async(e) => {
         const nameRegex = new RegExp(/^[가-힣]{2,18}$/);
-        const nickNameRegex = new RegExp(/^[가-힣a-zA-Z]{2,16}$/);
+        const nickNameRegex = new RegExp(/^([a-zA-Z0-9가-힣]){2,16}$/);
         const idRegEx = new RegExp(/^[a-zA-Z0-9]{8,16}$/);
         const pwRegEx = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,18}$/);
         const emailRegEx = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i);
         
+        // **************************************************
         // 이름 유효성 검사
         if ( e.target.name === "name" ) {
             if ( nameRegex.test(e.target.value) ) {
+                let resName = ""
+                await axios.post("http://localhost:4000/name", { name: member.name })
+                .then(res => {
+                    resName = res.data.name;
+                })
+                if ( resName !== "" ) {
+                    setChangeSpan({
+                        ...changeSpan,
+                        cName: {n: 0, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                    });
+                    setVisibleP({
+                        ...visibleP,
+                        vName: {content: pContent.coName.c3, visible: "flex"}
+                    });
+                } else {
+                    setChangeSpan({
+                        ...changeSpan,
+                        cName: {n: 0, bool: true, color: "violet", fontSize: "18px", fontWeight: "600", borderSize: "2px"}
+                    });
+                    setVisibleP({
+                        ...visibleP,
+                        vName: {content: '', visible: "none"}
+                    });
+                }
+            } else if ( e.target.value === "" ) {
                 setChangeSpan({
                     ...changeSpan,
-                    cName: {n: 0, bool: true, color: "violet", fontSize: "17px", fontWeight: "600", borderSize: "2px"}
+                    cName: {n: 0, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vName: {content: pContent.coName.c2, visible: "flex"}
                 });
             } else {
                 setChangeSpan({
                     ...changeSpan,
-                    cName: {n: 0, bool: false, color: "red", fontSize: "16px", fontWeight: "100", borderSize: "1px"}
+                    cName: {n: 0, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vName: {content: pContent.coName.c1, visible: "flex"}
                 });
             }
+        // ************************************
         // 닉네임 유효성 검사
         } else if ( e.target.name === "nickName" ) {
             if ( nickNameRegex.test(e.target.value) ) {
+                let resNickName = ""
+                await axios.post("http://localhost:4000/nickName", { nickName: member.nickName })
+                .then(res => {
+                    resNickName = res.data.nickName;
+                });
+                // 존재하는 닉네임이 있는 경우
+                if ( resNickName !== "" ) {
+                    setChangeSpan({
+                        ...changeSpan,
+                        cNickName: {n: 1, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                    });
+                    setVisibleP({
+                        ...visibleP,
+                        vNickname: {content: pContent.coNickName.c3, visible: "flex"}
+                    });
+                // 닉네임이 유효한 경우
+                // 즉 동일한 닉네임이 없고 양식과 동일하고 빈 칸이 아닌 경우
+                } else {
+                    setChangeSpan({
+                        ...changeSpan,
+                        cNickName: {n: 1, bool: true, color: "violet", fontSize: "18px", fontWeight: "600", borderSize: "2px"}
+                    });
+                    setVisibleP({
+                        ...visibleP,
+                        vNickname: {content: "", visible: "none"}
+                    });
+                }
+            // 빈 칸을 입력한 경우
+            } else if ( e.target.value === "" ) {
                 setChangeSpan({
                     ...changeSpan,
-                    cNickName: {n: 1, bool: true, color: "violet", fontSize: "17px", fontWeight: "600", borderSize: "2px"}
+                    cNickName: {n: 1, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
                 });
+                setVisibleP({
+                    ...visibleP,
+                    vNickname: {content: pContent.coNickName.c2, visible: "flex"}
+                });
+            // 입력한 정보가 틀린 경우
             } else {
                 setChangeSpan({
                     ...changeSpan,
-                    cNickName: {n: 1, bool: false, color: "red", fontSize: "16px", fontWeight: "100", borderSize: "1px"}
+                    cNickName: {n: 1, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vNickname: {content: pContent.coNickName.c1, visible: "flex"}
                 });
             }
+        // ************************************************    
         // 아이디 유효성 검사
         } else if ( e.target.name === "id" ) {
             if ( idRegEx.test(e.target.value) ) {
+                let resId = ""
+                await axios.post("http://localhost:4000/id", { id: member.id })
+                .then(res => {
+                    resId = res.data.id
+                });
+                if ( resId !== "" ) {
+                    setChangeSpan({
+                        ...changeSpan,
+                        cId: {n: 2, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                    });
+                    setVisibleP({
+                        ...visibleP,
+                        vId: {content: pContent.coId.c3, visible: "flex"}
+                    });
+                } else {
+                    setChangeSpan({
+                        ...changeSpan,
+                        cId: {n: 2, bool: true, color: "violet", fontSize: "18px", fontWeight: "600", borderSize: "2px"}
+                    });
+                    setVisibleP({
+                        ...visibleP,
+                        vId: {content: "", visible: "none"}
+                    });
+                }
+            } else if ( e.target.value === "" ) {
                 setChangeSpan({
                     ...changeSpan,
-                    cId: {n: 2, bool: true, color: "violet", fontSize: "17px", fontWeight: "600", borderSize: "2px"}
+                    cId: {n: 2, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vId: {content: pContent.coId.c2, visible: "flex"}
                 });
             } else {
                 setChangeSpan({
                     ...changeSpan,
-                    cId: {n: 2, bool: false, color: "red", fontSize: "16px", fontWeight: "100", borderSize: "1px"}
+                    cId: {n: 2, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vId: {content: pContent.coId.c1, visible: "flex"}
                 });
             }
         // 비밀번호 유효성 검사
@@ -92,12 +255,29 @@ const JoinMem = () => {
             if ( pwRegEx.test(e.target.value) ) {
                 setChangeSpan({
                     ...changeSpan,
-                    cPassword: {n: 3, bool: true, color: "violet", fontSize: "17px", fontWeight: "600", borderSize: "2px"}
+                    cPassword: {n: 3, bool: true, color: "violet", fontSize: "18px", fontWeight: "600", borderSize: "2px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vPassword: {content: "", visible: "none"}
+                });
+            } else if ( e.target.value === "") {
+                setChangeSpan({
+                    ...changeSpan,
+                    cPassword: {n: 3, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vPassword: {content: pContent.coPassword.c2, visible: "flex"}
                 });
             } else {
                 setChangeSpan({
                     ...changeSpan,
-                    cPassword: {n: 3, bool: false, color: "red", fontSize: "16px", fontWeight: "100", borderSize: "1px"}
+                    cPassword: {n: 3, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vPassword: {content: pContent.coPassword.c1, visible: "flex"}
                 });
             }
         // 비밀번호 확인 
@@ -105,25 +285,75 @@ const JoinMem = () => {
             if ( member.password === pwCheck && pwCheck !== "" ) {
                 setChangeSpan({
                     ...changeSpan,
-                    cPasswordCheck: {n: 4, bool: true, color: "violet", fontSize: "17px", fontWeight: "600", borderSize: "2px"}
+                    cPasswordCheck: {n: 4, bool: true, color: "violet", fontSize: "18px", fontWeight: "600", borderSize: "2px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vPasswordCheck: {content: "", visible: "none"}
+                });
+            } else if ( e.target.value === "" ) {
+                setChangeSpan({
+                    ...changeSpan,
+                    cPasswordCheck: {n: 4, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vPasswordCheck: {content: pContent.coPasswordCheck.c2, visible: "flex"}
                 });
             } else {
                 setChangeSpan({
                     ...changeSpan,
-                    cPasswordCheck: {n: 4, bool: false, color: "red", fontSize: "16px", fontWeight: "100", borderSize: "1px"}
+                    cPasswordCheck: {n: 4, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vPasswordCheck: {content: pContent.coPasswordCheck.c1, visible: "flex"}
                 });
             }
         // 이메일 유효성 검사
         } else {
             if ( emailRegEx.test(e.target.value) ) {
+                let resEmail = ""
+                await axios.post("http://localhost:4000/email", { email: member.email })
+                .then(res => {
+                    resEmail = res.data.email
+                });
+                if ( resEmail !== "" ) {
+                    setChangeSpan({
+                        ...changeSpan,
+                        cEmail: {n: 5, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                    });
+                    setVisibleP({
+                        ...visibleP,
+                        vEmail: {content: pContent.coEmail.c3, visible: "flex"}
+                    });
+                } else {
+                    setChangeSpan({
+                        ...changeSpan,
+                        cEmail: {n: 5, bool: true, color: "violet", fontSize: "18px", fontWeight: "600", borderSize: "2px"}
+                    });
+                    setVisibleP({
+                        ...visibleP,
+                        vEmail: {content: "", visible: "none"}
+                    });
+                }
+            } else if ( e.target.value === "" ) {
                 setChangeSpan({
                     ...changeSpan,
-                    cEmail: {n: 5, bool: true, color: "violet", fontSize: "17px", fontWeight: "600", borderSize: "2px"}
+                    cEmail: {n: 5, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vEmail: {content: pContent.coEmail.c2, visible: "flex"}
                 });
             } else {
                 setChangeSpan({
                     ...changeSpan,
-                    cEmail: {n: 5, bool: false, color: "#999", fontSize: "16px", fontWeight: "100", borderSize: "1px"}
+                    cEmail: {n: 5, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vEmail: {content: pContent.coEmail.c1, visible: "flex"}
                 });
             }
         }
@@ -145,7 +375,6 @@ const JoinMem = () => {
             } else {
                 checkBool = true;
                 console.log(v)
-
             }
         }
 
@@ -153,12 +382,11 @@ const JoinMem = () => {
             await axios
             .post("http://localhost:4000/joinMem", member)
             .then(res =>{
-                console.log(res);
-                console.log("success");
+
                 navigate("/Success", {replace: true});
             })
             .catch(err => {
-                console.error("fail");
+                console.error(err);
             });
         }   
     };
@@ -170,37 +398,55 @@ const JoinMem = () => {
                 <h2 style={{color: "violet", marginBottom: "1%"}}>회원가입</h2>
                 {/* 이름 */}
                 <InputWrap>
-                    <Span color={changeSpan.cName.color} fontSize={changeSpan.cName.fontSize} $fontWeight={changeSpan.cName.fontWeight} >이름</Span>
+                    <Span color={changeSpan.cName.color} fontSize={changeSpan.cName.fontSize} $fontWeight={changeSpan.cName.fontWeight} >
+                        이름
+                        <P display={visibleP.vName.visible}>{visibleP.vName.content}</P>
+                    </Span>
                     <Input ref={e => inputRef.current[0] = e} color={changeSpan.cName.color} $borderSize={changeSpan.cName.borderSize} type="name" name="name" value={member.name} onChange={handleOnChange} onBlur={handleOnBlur} />
                 </InputWrap>
 
                 {/* 닉네임 */}
                 <InputWrap>
-                    <Span color={changeSpan.cNickName.color} fontSize={changeSpan.cNickName.fontSize} $fontWeight={changeSpan.cNickName.fontWeight} >닉네임</Span>
+                    <Span color={changeSpan.cNickName.color} fontSize={changeSpan.cNickName.fontSize} $fontWeight={changeSpan.cNickName.fontWeight} >
+                        닉네임
+                        <P display={visibleP.vNickname.visible}>{visibleP.vNickname.content}</P>
+                    </Span>
                     <Input ref={e => inputRef.current[1] = e} color={changeSpan.cNickName.color} $borderSize={changeSpan.cNickName.borderSize} type="name" name="nickName" value={member.nickName} onChange={handleOnChange} onBlur={handleOnBlur} />
                 </InputWrap>
 
                 {/* 아이디 */}
                 <InputWrap>
-                    <Span color={changeSpan.cId.color} fontSize={changeSpan.cId.fontSize} $fontWeight={changeSpan.cId.fontWeight} >아이디</Span>
+                    <Span color={changeSpan.cId.color} fontSize={changeSpan.cId.fontSize} $fontWeight={changeSpan.cId.fontWeight} >
+                        아이디
+                        <P display={visibleP.vId.visible}>{visibleP.vId.content}</P>
+                    </Span>
                     <Input ref={e => inputRef.current[2] = e} color={changeSpan.cId.color} $borderSize={changeSpan.cId.borderSize} type="id" name="id" value={member.id} onChange={handleOnChange} onBlur={handleOnBlur} />
                 </InputWrap>
 
                 {/* 비밀번호 */}
                 <InputWrap>
-                    <Span color={changeSpan.cPassword.color} fontSize={changeSpan.cPassword.fontSize} $fontWeight={changeSpan.cPassword.fontWeight} >비밀번호</Span>
+                    <Span color={changeSpan.cPassword.color} fontSize={changeSpan.cPassword.fontSize} $fontWeight={changeSpan.cPassword.fontWeight} >
+                        비밀번호
+                        <P display={visibleP.vPassword.visible}>{visibleP.vPassword.content}</P>
+                    </Span>
                     <Input ref={e => inputRef.current[3] = e} color={changeSpan.cPassword.color} $borderSize={changeSpan.cPassword.borderSize} type="password" name="password" value={member.password} onChange={handleOnChange} onBlur={handleOnBlur} />
                 </InputWrap>
 
                 {/* 비밀번호 확인 */}
                 <InputWrap>
-                    <Span color={changeSpan.cPasswordCheck.color} fontSize={changeSpan.cPasswordCheck.fontSize} $fontWeight={changeSpan.cPasswordCheck.fontWeight} >비밀번호 확인</Span>
+                    <Span color={changeSpan.cPasswordCheck.color} fontSize={changeSpan.cPasswordCheck.fontSize} $fontWeight={changeSpan.cPasswordCheck.fontWeight} >
+                        비밀번호 확인
+                        <P display={visibleP.vPasswordCheck.visible}>{visibleP.vPasswordCheck.content}</P>
+                    </Span>
                     <Input ref={e => inputRef.current[4] = e} color={changeSpan.cPasswordCheck.color} $borderSize={changeSpan.cPasswordCheck.borderSize} type="password" name="passwordCheck" value={pwCheck} onChange={handleOnPwCheck} onBlur={handleOnBlur} />
                 </InputWrap>
 
                 {/* 이메일 */}
                 <InputWrap>
-                    <Span color={changeSpan.cEmail.color} fontSize={changeSpan.cEmail.fontSize} $fontWeight={changeSpan.cEmail.fontWeight} >이메일</Span>
+                    <Span color={changeSpan.cEmail.color} fontSize={changeSpan.cEmail.fontSize} $fontWeight={changeSpan.cEmail.fontWeight} >
+                        이메일
+                        <P display={visibleP.vEmail.visible}>{visibleP.vEmail.content}</P>
+                    </Span>
                     <Input ref={e => inputRef.current[5] = e} color={changeSpan.cEmail.color} $borderSize={changeSpan.cEmail.borderSize} type="email" name="email" value={member.email} onChange={handleOnChange} onBlur={handleOnBlur} />
                 </InputWrap>
                 <Button onClick={handleOnSubmit}>확인</Button>
@@ -239,10 +485,19 @@ const InputWrap = styled.div`
 `;
 
 const Span = styled.span`
+    display: flex;
     margin-left: 2%;
     color: ${props => props.color};
     font-size: ${props => props.fontSize};
     font-weight: ${props => props.$fontWeight};
+`
+
+const P = styled.p`
+    display: ${props => props.display};
+    font-size: 15px;
+    margin-left: 5%;
+    display: flex;
+    align-items: center;
 `
 
 const Input = styled.input`
