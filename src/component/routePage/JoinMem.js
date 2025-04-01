@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const JoinMem = () => {
+    // input에 입력한 정보들을 저장장
     const [member, setMember] = useState({
         name: "",
         nickName: "",
@@ -12,6 +13,8 @@ const JoinMem = () => {
         password: "",
         email: ""
     });
+    // 각각의 input의 정규식이 일치하지 않을 경우 
+    // 나오는 경고 메세지를 컨트롤롤
     const [visibleP, setVisibleP] = useState({
         vName: {
             content: "",
@@ -38,7 +41,9 @@ const JoinMem = () => {
             visible: "none",
         },
     });
+    // 비밀번호 확인을 위한 변수
     const [pwCheck, setPwCheck] = useState("");
+    // 입력한 정보에 따라 스타일에 변호를 주기 위한 변수수
     const [changeSpan, setChangeSpan] = useState({
         cName: {n: 0, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"},
         cNickName: {n: 1, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"},
@@ -47,6 +52,7 @@ const JoinMem = () => {
         cPasswordCheck: {n: 4, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"},
         cEmail: {n: 5, bool: false, color: "#999", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
     });
+    // 각각의 input의 경고 메세지를 저장장
     const pContent = {
         coName: {
             c1: "2 ~ 18자의 한글로 입력해주세요.",
@@ -77,9 +83,13 @@ const JoinMem = () => {
             c3: "동일한 이메일이 존재합니다."
         }
     };
+    // 회원가입 완료 시 페이지 이동을 위해 선언
     const navigate = useNavigate();
+    // 정보를 입력하지 않았거나 올바르게 입력하지 않고
+    // 회원가입 시도할 경우 해당 input에 포커스를 주기 위해 선언  
     const inputRef = useRef([]);
 
+    // 각각의 input에서 입력한 값을 변수에 넣기 위한 함수 
     const handleOnChange = (e) => {
         setMember({
             ...member,
@@ -98,6 +108,7 @@ const JoinMem = () => {
     // 진행한 상태라 일단 이 방식을 사용하고 나중에 다른 프로젝트에서
     // 비슷한 이벤트를 만들 때 useEffect를 사용할 예정이다.)
     const handleOnBlur = async(e) => {
+        // 각각의 input에 해당하는 정규식
         const nameRegex = new RegExp(/^[가-힣]{2,18}$/);
         const nickNameRegex = new RegExp(/^([a-zA-Z0-9가-힣]){2,16}$/);
         const idRegEx = new RegExp(/^[a-zA-Z0-9]{8,16}$/);
@@ -362,27 +373,36 @@ const JoinMem = () => {
     // 확인 버튼 클릭 시 입력 정보를 체크하고 
     // 올바르면 db에 저장, 올바르지 않다면 경고 
     const handleOnSubmit = async() => {
+        // 모든 input값에 따라 참 거짓 구분
+        // 모든 input 값이 참이어야 true로 변경
         let checkBool = false;
 
+        // input값의 참 거짓이 들어있는 
+        // changeSpan 객체를 순회회
         for ( let key in changeSpan) {
             const v = changeSpan[key];
 
+            // 만약 false가 있는 input값이 있다면 
+            // 순회를 멈추고 해당 input에 focus
             if ( v.bool === false ) {
                 inputRef.current[v.n].focus();
                 checkBool = false;
-                console.log(v)
                 break;
+            // false가 아니라면 전체 참 거짓을 true로 변경
+            // 다음 input값이 false라면 다시 false로 변경경
             } else {
                 checkBool = true;
-                console.log(v)
             }
         }
 
+        // checkBool이 true라는 것은 모든 input값이 
+        // 잘 입력되었다는 것을 의미
+        // 데이터베이스에 작성한 정보들을 저장 
         if ( checkBool === true ) {
+            console.log("good")
             await axios
             .post("http://localhost:4000/joinMem", member)
             .then(res =>{
-
                 navigate("/Success", {replace: true});
             })
             .catch(err => {

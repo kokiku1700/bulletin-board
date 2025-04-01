@@ -19,7 +19,7 @@ app.get("/api", (req, res) => {
 app.post("/joinMem", (req, res) => {
     const user = new User(req.body);
     user.save();
-    console.log("success");
+    res.status(200).send({"message": "success"});
 });
 
 app.post("/name", (req, res) => {
