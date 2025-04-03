@@ -10,7 +10,8 @@ const Header = () => {
 
     if ( location.pathname === "/Login" || 
         location.pathname === "/JoinMem" ||
-        location.pathname === "/IdSearch" ) return null;
+        location.pathname === "/IdSearch" ||
+        location.pathname === "/PwSearch" ) return null;
 
     const handleOnClickLogout = () => {
         localStorage.clear();

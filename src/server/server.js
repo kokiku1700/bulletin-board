@@ -16,27 +16,14 @@ app.get("/api", (req, res) => {
     res.send(req.body);
 });
 
+// 회원가입 
 app.post("/joinMem", (req, res) => {
     const user = new User(req.body);
     user.save();
     res.status(200).send({"message": "success"});
 });
 
-app.post("/name", (req, res) => {
-    User.findOne({ name: req.body.name })
-    .then(user => {
-        if ( user ) {
-            return res.status(200).json({
-                name: user.name
-            })
-        } else {
-            return res.status(200).json({
-                name: ""
-            })
-        }
-    });
-});
-
+// 회원가입 시 동일한 닉네임이 있는지 체크
 app.post("/nickName", (req, res) => {
     User.findOne({ nickName: req.body.nickName })
     .then(user => {
@@ -52,6 +39,7 @@ app.post("/nickName", (req, res) => {
     });
 });
 
+// 회원가입시 동일한 아이디가 존재하는 지 체크
 app.post("/id", (req, res) => {
     User.findOne({ id: req.body.id })
     .then(user => {
@@ -67,6 +55,7 @@ app.post("/id", (req, res) => {
     });
 });
 
+// 회원가입 시 동일한 이메일이 존재하는 지 체크 
 app.post("/email", (req, res) => {
     User.findOne({ email: req.body.email })
     .then(user => {
@@ -82,6 +71,7 @@ app.post("/email", (req, res) => {
     });
 });
 
+// 로그인
 app.post("/login", (req, res) => {
     User.findOne({ id: req.body.id, password: req.body.pw })
     .then(user => {
@@ -96,10 +86,40 @@ app.post("/login", (req, res) => {
         }
     }).catch(err => {
         return res.status(500).json({ message: "에러!"});
-    })
-        
+    });     
 });
 
+// 아이디 찾기
+app.post("/idSearch", (req, res) => {
+    User.findOne({ name: req.body.name, email: req.body.email})
+    .then(user => {
+        if ( user ) {
+            return res.status(200).json({id: user.id});
+        } else {
+            return res.status(200).json({message: "존재하는 아이디가 없습니다."});
+        };
+    });
+});
+
+// 비밀번호 찾기
+app.post("/pwSearch", (req, res) => {
+    User.findOne({ id: req.body.id })
+    .then(user => {
+        if ( user ) {
+            return res.status(200).json({password: user.password});
+        } else {
+            return res.status(200).json({message: "아이디를 정확하게 입력해주세요."});
+        };
+    });
+});
+
+// 비밀번호 찾기에 성공하면 새로운 비밀번호로 업데이트
+app.post("/pwChange", (req, res) => {
+    User.updateOne({id: req.body.id}, {$set: {password: req.body.password}})
+    .then(user => {
+        return res.status(200).json({"message": "success"});
+    })
+})
 
 app.listen(4000, () => {
     console.log("server connect");

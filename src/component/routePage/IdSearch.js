@@ -1,21 +1,60 @@
 import styled from "styled-components";
 import Logo from "../Logo";
+import { useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const IdSearch = () => {
+    const [search, setSearch] = useState({
+        name: "",
+        id: "",
+        email: ""
+    });
+    const [bool, setBool] = useState(false);
+
+    const handleOnChange = (e) => {
+        setSearch({
+            ...search,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const onSubmit = async() => {
+        await axios.post("http://localhost:4000/idSearch", {name: search.name, email: search.email})
+        .then(res => {
+            if ( res.data.id ) {
+                setBool(true);
+                setSearch({
+                    ...search,
+                    id: res.data.id
+                });
+            } else {
+                setBool(false);
+            };
+        });
+    };
 
     return (
         <Div>            
             <Logo />
             <InputDiv>
-                <InputWrap>
-                    <Span>이름</Span>
-                    <Input></Input>
-                </InputWrap>
-                <InputWrap>
-                    <Span>이메일</Span>
-                    <Input></Input>
-                </InputWrap>
-                <Button>확인</Button>
+                {bool 
+                    ? <>
+                        <h1>{search.id}</h1>
+                        <StyledLink to="/">홈</StyledLink>
+                    </>
+                    : <>
+                        <InputWrap>
+                            <Span>이름</Span>
+                            <Input type="name" name="name" value={search.name} onChange={handleOnChange} />
+                        </InputWrap>
+                        <InputWrap>
+                            <Span>이메일</Span>
+                            <Input type="email" name="email" value={search.email} onChange={handleOnChange} />
+                        </InputWrap>
+                        <Button onClick={onSubmit}>확인</Button>
+                    </> 
+                }       
             </InputDiv>
         </Div>
     )
@@ -62,6 +101,12 @@ const Input = styled.input`
     width: 100%;
     margin: 3% 0;
     padding: 2% 1%;
+    font-size: 1vw;
+
+    &:focus {
+        outline: none;
+        border-bottom: 2px solid violet;
+    }
 `;
 
 const Button = styled.button`
@@ -72,6 +117,17 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
 `;
 
+const StyledLink = styled(Link)`
+    padding: 1.5% 7%;
+    background: violet;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 1.2vw;
+    text-decoration: none;
+    margin-top: 10%;
+`;   
 export default IdSearch;

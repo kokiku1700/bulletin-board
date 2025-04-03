@@ -19,7 +19,7 @@ const Div = styled.div`
     align-items: center;
     flex-direction: column;
     margin: 0 auto;
-`
+`;
 
 const H1 = styled.h1`
         @font-face {
@@ -30,7 +30,7 @@ const H1 = styled.h1`
     }
     margin: 10% 0;
     font-family: 'Tenada';
-`
+`;
 
 const StyledLink = styled(Link)`
     padding: 1% 5%;
@@ -40,6 +40,6 @@ const StyledLink = styled(Link)`
     border-radius: 5px;
     font-size: 1.2vw;
     text-decoration: none;
-`   
+`;   
 
 export default Success;

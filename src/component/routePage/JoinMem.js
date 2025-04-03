@@ -57,7 +57,6 @@ const JoinMem = () => {
         coName: {
             c1: "2 ~ 18자의 한글로 입력해주세요.",
             c2: "이름을 입력해주세요.",
-            c3: "이미 회원가입된 계정이 있습니다."
         },
         coNickName: {
             c1: "2 ~ 16자의 영문이나 한글, 숫자로 입력해주세요.",
@@ -118,31 +117,15 @@ const JoinMem = () => {
         // **************************************************
         // 이름 유효성 검사
         if ( e.target.name === "name" ) {
-            if ( nameRegex.test(e.target.value) ) {
-                let resName = ""
-                await axios.post("http://localhost:4000/name", { name: member.name })
-                .then(res => {
-                    resName = res.data.name;
-                })
-                if ( resName !== "" ) {
-                    setChangeSpan({
-                        ...changeSpan,
-                        cName: {n: 0, bool: false, color: "red", fontSize: "18px", fontWeight: "100", borderSize: "1px"}
-                    });
-                    setVisibleP({
-                        ...visibleP,
-                        vName: {content: pContent.coName.c3, visible: "flex"}
-                    });
-                } else {
-                    setChangeSpan({
-                        ...changeSpan,
-                        cName: {n: 0, bool: true, color: "violet", fontSize: "18px", fontWeight: "600", borderSize: "2px"}
-                    });
-                    setVisibleP({
-                        ...visibleP,
-                        vName: {content: '', visible: "none"}
-                    });
-                }
+            if ( nameRegex.test(e.target.value) ) { 
+                setChangeSpan({
+                    ...changeSpan,
+                    cName: {n: 0, bool: true, color: "violet", fontSize: "18px", fontWeight: "600", borderSize: "2px"}
+                });
+                setVisibleP({
+                    ...visibleP,
+                    vName: {content: '', visible: "none"}
+                });
             } else if ( e.target.value === "" ) {
                 setChangeSpan({
                     ...changeSpan,
