@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { styled } from "styled-components";
 import Logo from "./Logo";
 import { breakPoints } from "../ease/media";
+import people from "../img/people.png";
 
 const Header = () => {
     const location = useLocation();
@@ -31,6 +32,7 @@ const Header = () => {
                     :
                     <Div $justifycontent="center" width="30">
                         <p>{loginNickname}</p>
+                        <Img src={people} alt="imformation" />
                         <StyledLink onClick={handleOnClickLogout} >로그아웃</StyledLink>
                     </Div>
             }
@@ -46,13 +48,13 @@ const DivWrap = styled.div`
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid #999;
-`
+`;
 const Div = styled.div`
     width: ${props => props.width}%;
     display: flex;
     justify-content: ${props => props.$justifycontent};
     align-items: center;
-`
+`;
 
 const StyledLink = styled(Link)`
 
@@ -81,5 +83,9 @@ const StyledLink = styled(Link)`
         padding: 5% 12%;
     }
 `;
+
+const Img = styled.img`
+    width: 2.5vw;
+`
 
 export default Header;

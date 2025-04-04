@@ -52,43 +52,49 @@ const PwSearch = () => {
         });
     };
 
-    const handleOnBlur = () => {
+    const handleOnBlur = ( e ) => {
         const pwRegEx = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,18}$/);
 
-        if ( pwRegEx.test(search.password) ) {
-            if ( search.password === search.passwordCheck ) {
+        if ( e.target.name === "password" ) {
+            if ( pwRegEx.test(search.password) ) {
                 setVisibleP({
-                    vPassword:{ content: "", visible: "none"},
-                    vPasswordCheck:{ content: "", visible: "none"}
-            
+                    ...visibleP,
+                    vPassword:{ content: "", visible: "none"},            
+                });
+            } else if ( search.password === "" ) {
+                setVisibleP({
+                    ...visibleP,
+                    vPassword:{ content: pwMessage.coPassword.c2, visible: "flex"}
+                });
+            } else {
+                setVisibleP({
+                    ...visibleP,
+                    vPassword:{ content: pwMessage.coPassword.c1, visible: "flex"}
+                });
+            }
+        } else {
+            if ( search.passwordCheck === "" ) {
+                setVisibleP({
+                    ...visibleP,
+                    vPasswordCheck: {content: pwMessage.coPasswordCheck.c2, visible: "flex"}
+                });
+                setResultBool(false);
+            } else if ( search.password === search.passwordCheck ) {
+                setVisibleP({
+                    ...visibleP,
+                    vPasswordCheck: {content: "", visible: "none"}
                 });
                 setResultBool(true);
             } else {
                 setVisibleP({
                     ...visibleP,
-                    vPasswordCheck:{ content: pwMessage.coPasswordCheck.c1, visible: "flex"}
+                    vPasswordCheck: {content: pwMessage.coPasswordCheck.c1, visible: "flex"}
                 });
                 setResultBool(false);
             }
-        } else if ( search.password === "" ) {
-            setVisibleP({
-                ...visibleP,
-                vPassword:{ content: pwMessage.coPassword.c2, visible: "flex"}
-            });
-            setResultBool(false);
-        } else if ( search.passwordCheck === "" ) {
-            setVisibleP({
-                ...visibleP,
-                vPasswordCheck:{ content: pwMessage.coPasswordCheck.c2, visible: "flex"}
-            });
-            setResultBool(false);
-        } else {
-            setVisibleP({
-                ...visibleP,
-                vPassword:{ content: pwMessage.coPassword.c1, visible: "flex"}
-            });
-            setResultBool(false);
+            
         }
+
     }
 
     const onPwChange = async() => {
@@ -169,6 +175,9 @@ const Span = styled.span`
 
 const P = styled.p`
     display; ${props => props.$display};
+    margin-top: 2%;
+    color: red;
+    font-size: 13px;
 `
 
 const Input = styled.input`
