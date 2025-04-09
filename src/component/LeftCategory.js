@@ -1,17 +1,20 @@
 import styled from "styled-components";
 
 
-const LeftCategory = () => {
+const LeftCategory = ({ list }) => {
 
     return (
         <Div>
-            왼 쪽 카테고리
+            {list.map(e => (
+                e
+            ))}
         </Div>
     );
 };
 
 const Div = styled.div`
-    width: 18%;
+    width: 15%;
+    border-right: 1px solid #bbb;
 `
 
 export default LeftCategory;

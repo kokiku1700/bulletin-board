@@ -10,20 +10,24 @@ import Success from './component/routePage/Success';
 import ThemeChange from './component/ThemeChange';
 import Write from './component/Write';
 import PostWrite from './component/routePage/PostWrite';
+import { useState } from 'react';
 
 function App() {
+  const [list, setList] = useState([
+    "일상", "공부"
+  ]);
 
   return (
     <div className="App">
       <Header />
       <Routes>
-        <Route path='/' element={<Main />} />
+        <Route path='/' element={<Main list={list} />} />
         <Route path='/Login' element={<Login />} />
         <Route path='/IdSearch' element={<IdSearch />} />
         <Route path='/PwSearch' element={<PwSearch />} />
         <Route path='/JoinMem' element={<JoinMem />} />
         <Route path='/Success' element={<Success />} />
-        <Route path='/PostWrite' element={<PostWrite />} />
+        <Route path='/PostWrite' element={<PostWrite list={list} />} />
       </Routes>
       <ThemeChange />
       <Write />

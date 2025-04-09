@@ -4,6 +4,7 @@ const dbConnect = require("./dbConnect");
 const app = express();
 const bodyParser = require("body-parser");
 const { User } = require("./userModel");
+const { Board } = require("./boardModel");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -120,6 +121,20 @@ app.post("/pwChange", (req, res) => {
         return res.status(200).json({"message": "success"});
     })
 })
+
+// 게시글 작성
+app.post("/write", (req, res) => {
+    const board = new Board(req.body);
+    board.save();
+    res.status(200).send({"message": "success"});
+});
+
+app.get("/list", (req, res) => {
+    Board.find()
+    .then(board => {
+        res.status(200).json({board})
+    })
+});
 
 app.listen(4000, () => {
     console.log("server connect");
