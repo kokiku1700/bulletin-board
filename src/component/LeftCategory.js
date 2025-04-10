@@ -13,7 +13,7 @@ const LeftCategory = ({ list }) => {
 };
 
 const Div = styled.div`
-    width: 15%;
+    width: 8%;
     border-right: 1px solid #bbb;
 `
 
