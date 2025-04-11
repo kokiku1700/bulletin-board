@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const boardSchema = mongoose.Schema({
+    id: {
+        type: Number,
+    },
     title: {
         type: String,
         required: true,

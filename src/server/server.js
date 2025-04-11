@@ -126,8 +126,15 @@ app.post("/pwChange", (req, res) => {
 app.post("/write", (req, res) => {
     const board = new Board(req.body);
     board.save();
+
+    Board.findOne().sort({ dateCreated: -1})
+    .then(data => {
+        let num = Board.count_document();
+        Board.updateOne({ id: data.id }, { id: num - 1});
+    })
     res.status(200).send({"message": "success"});
 });
+
 
 app.get("/list", (req, res) => {
     Board.find()
@@ -135,6 +142,7 @@ app.get("/list", (req, res) => {
         res.status(200).json({board})
     })
 });
+
 
 app.listen(4000, () => {
     console.log("server connect");

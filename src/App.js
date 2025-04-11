@@ -10,6 +10,7 @@ import Success from './component/routePage/Success';
 import ThemeChange from './component/ThemeChange';
 import Write from './component/Write';
 import PostWrite from './component/routePage/PostWrite';
+import Post from './component/routePage/Post';
 import { useState } from 'react';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path='/JoinMem' element={<JoinMem />} />
         <Route path='/Success' element={<Success />} />
         <Route path='/PostWrite' element={<PostWrite list={list} />} />
+        <Route path='/Post' element={<Post />} />
       </Routes>
       <ThemeChange />
       <Write />

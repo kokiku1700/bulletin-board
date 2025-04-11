@@ -1,16 +1,20 @@
 import styled from "styled-components";
 import LeftCategory from "../LeftCategory";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostList from "../PostList";
 
 const Main = ({ list }) => {
     const [postList, setPostList] = useState([]);
 
-    axios.get("http://localhost:4000/list")
+    useEffect(() => {
+        axios.get("http://localhost:4000/list")
         .then(res => {
             setPostList([...res.data.board]);
         });
+    }, [])
+
+    
 
    
     return (

@@ -4,14 +4,16 @@ import { useState } from "react";
 import axios from "axios";
 
 const PostWrite = ({ list }) => {
+
     const [write, setWrite] = useState({
+        id: 0,
         title: "",
         category: "",
         content: "",
         writer: localStorage.getItem(localStorage.key(0)),
         date: "",
     });
-    const date = new Date();
+    const newDate = new Date();
     const navigate = useNavigate();
 
     const handleOnChange = (e) => {
@@ -19,14 +21,14 @@ const PostWrite = ({ list }) => {
             ...write,
             [e.target.name]: e.target.value
         });
-        console.log(write.writer)
+        console.log(newDate)
     };
 
     const handleOnSubmit = async() => {
         if ( write.title !== ""
             && write.category !== ""
             && write.content !== "")
-            write.date = date.toLocaleDateString();
+            write.date = newDate.toLocaleDateString();
 
             await axios.post("http://localhost:4000/write", write)
             .then(res => {
