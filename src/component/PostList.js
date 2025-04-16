@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-const PostList = ({ postList, idx }) => {
+const PostList = ({ postList }) => {
 
     return(
         <Div>
             <Table>
                 <Tbody>
                     <Tr>
-                        <Td width="6%" $borderRight="1px solid #ccc">{idx}</Td>
+                        <Td width="6%" $borderRight="1px solid #ccc">{postList._id}</Td>
                         <Td width="60%" $borderRight="1px solid #ccc">{postList.title}</Td>
                         <Td width="22%" $borderRight="1px solid #ccc">{postList.writer}</Td>
                         <Td width="12%" $borderRight="none">{postList.date}</Td>

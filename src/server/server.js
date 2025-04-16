@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const { User } = require("./userModel");
 const { Board } = require("./boardModel");
+const { Count } = require("./countModel");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -12,10 +13,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
 dbConnect();
-
-app.get("/api", (req, res) => {
-    res.send(req.body);
-});
 
 // 회원가입 
 app.post("/joinMem", (req, res) => {
@@ -123,15 +120,24 @@ app.post("/pwChange", (req, res) => {
 })
 
 // 게시글 작성
-app.post("/write", (req, res) => {
-    const board = new Board(req.body);
-    board.save();
+app.post("/write", async(req, res) => {
 
-    Board.findOne().sort({ dateCreated: -1})
+    await Count.findOne({name: "게시물 총 개수"})
     .then(data => {
-        let num = Board.count_document();
-        Board.updateOne({ id: data.id }, { id: num - 1});
-    })
+        let num = data.count;
+          
+        Board.insertOne({
+            _id: num,
+            title: req.body.title,
+            category: req.body.category,
+            content: req.body.content,
+            writer: req.body.writer,
+            date: req.body.date,
+        })
+    });
+    
+    await Count.updateOne({name: "게시물 총 개수"}, {$inc: {count: 1}});
+
     res.status(200).send({"message": "success"});
 });
 
@@ -143,6 +149,12 @@ app.get("/list", (req, res) => {
     })
 });
 
+app.get("/postDetail", (req, res) => {
+    Board.findOne({_id: req.query._id})
+    .then(detail => {
+        res.status(200).json({detail});
+    });
+});
 
 app.listen(4000, () => {
     console.log("server connect");

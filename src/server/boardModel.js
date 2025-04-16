@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const boardSchema = mongoose.Schema({
-    id: {
-        type: Number,
+    _id: {
+        type: Number
     },
     title: {
         type: String,

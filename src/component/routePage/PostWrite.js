@@ -6,7 +6,6 @@ import axios from "axios";
 const PostWrite = ({ list }) => {
 
     const [write, setWrite] = useState({
-        id: 0,
         title: "",
         category: "",
         content: "",
@@ -21,14 +20,13 @@ const PostWrite = ({ list }) => {
             ...write,
             [e.target.name]: e.target.value
         });
-        console.log(newDate)
     };
 
     const handleOnSubmit = async() => {
         if ( write.title !== ""
             && write.category !== ""
             && write.content !== "")
-            write.date = newDate.toLocaleDateString();
+            write.date = newDate.toLocaleString();
 
             await axios.post("http://localhost:4000/write", write)
             .then(res => {

@@ -3,6 +3,7 @@ import LeftCategory from "../LeftCategory";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PostList from "../PostList";
+import { Link } from "react-router-dom";
 
 const Main = ({ list }) => {
     const [postList, setPostList] = useState([]);
@@ -31,9 +32,11 @@ const Main = ({ list }) => {
                         </Tr>
                     </Thead>
                 </Table>
-                {postList.map((e, i) => (
-                    <PostList postList={e} idx={i} key={i} />
-                ))} 
+                {postList.map((e) => (
+                    <StyledLink to={`/Post/${e._id}`}  key={e._id}>
+                        <PostList postList={e} />
+                    </StyledLink>
+                )).reverse()} 
             </MainDiv>
         </Div>
     );
@@ -50,6 +53,11 @@ const Div = styled.div`
 const MainDiv = styled.div`
     width: 70%;
     margin: 0 2%;
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
 `;
 
 const Table = styled.table`
