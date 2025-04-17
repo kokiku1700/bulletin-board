@@ -119,6 +119,39 @@ app.post("/pwChange", (req, res) => {
     })
 })
 
+// 게시글 전체 리스트 가져오기
+app.get("/list", (req, res) => {
+    Board.find()
+    .then(board => {
+        res.status(200).json({board})
+    })
+});
+
+// 게시글 필터
+app.get("/listFilter", (req, res) => {
+    console.log(req.query.category)
+    Board.find({category: req.query.category})
+    .then(board => {
+        res.status(200).json({board});
+    })
+});
+
+// 게시글 개수 가져오기
+app.get("/count", (req, res) => {
+    Board.find({category: req.query.category}).countDocuments()
+    .then(num => {
+        res.status(200).json({num});
+    });
+});
+
+// 게시글 중 하나 클릭시 상세 페이지 이동
+app.get("/postDetail", (req, res) => {
+    Board.findOne({_id: req.query._id})
+    .then(detail => {
+        res.status(200).json({detail});
+    });
+});
+
 // 게시글 작성
 app.post("/write", async(req, res) => {
 
@@ -141,20 +174,25 @@ app.post("/write", async(req, res) => {
     res.status(200).send({"message": "success"});
 });
 
-
-app.get("/list", (req, res) => {
-    Board.find()
-    .then(board => {
-        res.status(200).json({board})
+// 게시글 수정
+app.put("/postEdit", async(req, res) => {
+    await Board.updateOne({ _id: req.body._id }, {
+        _id: req.body._id,
+        title: req.body.title,
+        category: req.body.category,
+        content: req.body.content,
+        writer: req.body.writer,
+        date: req.body.date,
     })
+    .then(res.status(200).send({"message": "success"}));
 });
 
-app.get("/postDetail", (req, res) => {
-    Board.findOne({_id: req.query._id})
-    .then(detail => {
-        res.status(200).json({detail});
-    });
-});
+//게시글 삭제
+app.delete("/postDelete", async(req, res) => {
+    console.log(req.body._id)
+    await Board.deleteOne({_id: req.body._id})
+    .then(res.status(200).send({"message": "success"}));
+})
 
 app.listen(4000, () => {
     console.log("server connect");

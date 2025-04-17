@@ -1,16 +1,17 @@
 import styled from "styled-components";
 
-const PostList = ({ postList }) => {
+const PostList = ({ postList, idx }) => {
 
     return(
         <Div>
             <Table>
                 <Tbody>
                     <Tr>
-                        <Td width="6%" $borderRight="1px solid #ccc">{postList._id}</Td>
-                        <Td width="60%" $borderRight="1px solid #ccc">{postList.title}</Td>
-                        <Td width="22%" $borderRight="1px solid #ccc">{postList.writer}</Td>
-                        <Td width="12%" $borderRight="none">{postList.date}</Td>
+                        <Td width="10%" >{idx + 1}</Td>
+                        <Td width="10%" >{postList.category}</Td>
+                        <Td width="45%" >{postList.title}</Td>
+                        <Td width="20%" >{postList.writer}</Td>
+                        <Td width="15%" >{postList.date}</Td>
                     </Tr>
                 </Tbody>
             </Table>
@@ -24,7 +25,6 @@ const Div = styled.div`
     border-bottom: 1px solid #ccc;
     cursor: pointer;
     padding: 1% 0;
-
     &:hover {
         background: #eee
     }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -9,7 +9,8 @@ const Post = () => {
     const loginWriter = localStorage.getItem(localStorage.key(0));
     const postWriter = post.writer;
     let buttonStatus = loginWriter === postWriter ? 'block' : 'none'; 
-    
+    const navigate = useNavigate();
+
     useEffect(() => {
         axios.get("http://localhost:4000/postDetail", {params: {_id: id}})
         .then(res => {
@@ -17,12 +18,12 @@ const Post = () => {
         });
     }, []);
 
-    const handleOnEdit = () => {
-
-    };
     
-    const handleOnDelete = () => {
-        
+    const handleOnDelete = async() => {
+        await axios.delete("http://localhost:4000/postDelete", {data: {_id: id}})
+        .then(res => {
+            navigate("/");
+        })
     };
 
     return(
@@ -34,7 +35,7 @@ const Post = () => {
                 <Button $buttonStatus={buttonStatus}>
                     <StyledLink to={`/PostEdit/${id}`}>수정</StyledLink>
                 </Button>
-                <Button $buttonStatus={buttonStatus}>
+                <Button $buttonStatus={buttonStatus} onClick={handleOnDelete}>
                     삭제
                 </Button>
             </Div>

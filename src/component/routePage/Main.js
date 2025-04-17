@@ -7,34 +7,41 @@ import { Link } from "react-router-dom";
 
 const Main = ({ list }) => {
     const [postList, setPostList] = useState([]);
+    const [filter, setFilter] = useState("전체");
 
     useEffect(() => {
-        axios.get("http://localhost:4000/list")
-        .then(res => {
-            setPostList([...res.data.board]);
-        });
-    }, [])
-
-    
+        if ( filter !== "전체" ) {
+            axios.get("http://localhost:4000/listFilter", {params: {category: filter}})
+            .then(res => {
+                setPostList([...res.data.board]);
+            });
+        } else {
+            axios.get("http://localhost:4000/list")
+            .then(res => {
+                setPostList([...res.data.board]);
+            });
+        }
+    }, [filter]);
 
    
     return (
         <Div>
-            <LeftCategory list={list} />
+            <LeftCategory list={list} setFilter={setFilter} />
             <MainDiv>
                 <Table>
                     <Thead>
                         <Tr>
-                            <Th $width="6%" $borderRight="1px solid #ccc">번호</Th>
-                            <Th $width="60%" $borderRight="1px solid #ccc">제목</Th>
-                            <Th $width="22%" $borderRight="1px solid #ccc">작성자</Th>
-                            <Th $width="12%" $borderRight="none">작성날짜</Th>
+                            <Th $width="10%" $borderRight="1px solid #ccc">번호</Th>
+                            <Th $width="10%" $borderRight="1px solid #ccc">카테고리</Th>
+                            <Th $width="45%" $borderRight="1px solid #ccc">제목</Th>
+                            <Th $width="20%" $borderRight="1px solid #ccc">작성자</Th>
+                            <Th $width="15%" $borderRight="none">작성날짜</Th>
                         </Tr>
                     </Thead>
                 </Table>
-                {postList.map((e) => (
-                    <StyledLink to={`/Post/${e._id}`}  key={e._id}>
-                        <PostList postList={e} />
+                {postList.map((e, i) => (
+                    <StyledLink to={`/Post/${e._id}`} key={e._id}>
+                        <PostList postList={e} idx={i}/>
                     </StyledLink>
                 )).reverse()} 
             </MainDiv>

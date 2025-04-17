@@ -12,12 +12,9 @@ import Write from './component/Write';
 import PostWrite from './component/routePage/PostWrite';
 import PostEdit from './component/routePage/PostEdit';
 import Post from './component/routePage/Post';
-import { useState } from 'react';
 
 function App() {
-  const [list, setList] = useState([
-    "일상", "공부"
-  ]);
+  const list = ["전체", "일상", "공부", "취미", "요리", "게임"];
 
   return (
     <div className="App">
@@ -30,7 +27,7 @@ function App() {
         <Route path='/JoinMem' element={<JoinMem />} />
         <Route path='/Success' element={<Success />} />
         <Route path='/PostWrite' element={<PostWrite list={list} />} />
-        <Route path='/PostEdit/:id' element={<PostEdit />} />
+        <Route path='/PostEdit/:id' element={<PostEdit list={list} />} />
         <Route path='/Post/:id' element={<Post />} />
       </Routes>
       <ThemeChange />
