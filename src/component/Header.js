@@ -3,21 +3,40 @@ import { styled } from "styled-components";
 import Logo from "./Logo";
 import { breakPoints } from "../ease/media";
 import people from "../img/people.png";
+import MyControl from "./MyControl";
+import { useEffect, useRef, useState } from "react";
 
 const Header = () => {
     const location = useLocation();
     const loginStatus = localStorage.length;
     const loginNickname = localStorage.getItem(localStorage.key(loginStatus - 1));
-
+    const [toggleImg, setToggleImg] = useState(false);
+    const htmlRef = useRef(null);
+    
+    useEffect(() => {
+        function handleFocus(e) {
+        	if (htmlRef.current && !htmlRef.current.contains(e.target)) {
+                setToggleImg(false)
+            };
+            console.log(e.target)
+        };
+        document.addEventListener("mouseup", handleFocus);
+        return () => { document.removeEventListener("mouseup", handleFocus); }
+    }, [htmlRef]);
+    
     if ( location.pathname === "/Login" || 
         location.pathname === "/JoinMem" ||
         location.pathname === "/IdSearch" ||
         location.pathname === "/PwSearch" ) return null;
 
-    const handleOnClickLogout = () => {
-        localStorage.clear();
-    }
     
+    
+    const handleOnToggle = () => {
+        setToggleImg(!toggleImg);
+    };
+    
+    
+
     return (
         <DivWrap>
             <Div $justifycontent="flex-start" width="70">
@@ -30,10 +49,10 @@ const Header = () => {
                         <StyledLink to='/Login' >로그인</StyledLink>
                     </Div> 
                     :
-                    <Div $justifycontent="center" width="30">
+                    <Div ref={htmlRef} $justifycontent="center" width="30">
                         <p>{loginNickname}</p>
-                        <Img src={people} alt="imformation" />
-                        <StyledLink onClick={handleOnClickLogout} >로그아웃</StyledLink>
+                        <Img src={people} alt="imformation" onClick={handleOnToggle} />
+                        {toggleImg ? <MyControl /> : null}
                     </Div>
             }
             
@@ -86,6 +105,7 @@ const StyledLink = styled(Link)`
 
 const Img = styled.img`
     width: 2.5vw;
+    cursor: pointer;
 `
 
 export default Header;

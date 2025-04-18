@@ -129,7 +129,6 @@ app.get("/list", (req, res) => {
 
 // 게시글 필터
 app.get("/listFilter", (req, res) => {
-    console.log(req.query.category)
     Board.find({category: req.query.category})
     .then(board => {
         res.status(200).json({board});
@@ -189,7 +188,6 @@ app.put("/postEdit", async(req, res) => {
 
 //게시글 삭제
 app.delete("/postDelete", async(req, res) => {
-    console.log(req.body._id)
     await Board.deleteOne({_id: req.body._id})
     .then(res.status(200).send({"message": "success"}));
 })
