@@ -117,7 +117,25 @@ app.post("/pwChange", (req, res) => {
     .then(user => {
         return res.status(200).json({"message": "success"});
     })
-})
+});
+
+// 내 정보 가져오기
+app.get("/myData", (req,res) => {
+    User.findOne({id: req.query.id})
+    .then(user => {
+        return res.status(200).json({user});
+    });
+});
+
+// 회원 탈퇴 하기
+app.delete("/deleteMem", async(req,res) => {
+    await User.deleteOne({id: req.body.id})
+    .then(data => {
+        return res.status(200).send({"message": "success"});
+    });
+
+    await Board.deleteMany({writer: req.body.nickName});
+});
 
 // 게시글 전체 리스트 가져오기
 app.get("/list", (req, res) => {

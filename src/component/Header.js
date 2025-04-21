@@ -6,9 +6,8 @@ import people from "../img/people.png";
 import MyControl from "./MyControl";
 import { useEffect, useRef, useState } from "react";
 
-const Header = () => {
+const Header = ({ loginStatus }) => {
     const location = useLocation();
-    const loginStatus = localStorage.length;
     const loginNickname = localStorage.getItem(localStorage.key(loginStatus - 1));
     const [toggleImg, setToggleImg] = useState(false);
     const htmlRef = useRef(null);
@@ -20,8 +19,8 @@ const Header = () => {
             };
             console.log(e.target)
         };
-        document.addEventListener("mouseup", handleFocus);
-        return () => { document.removeEventListener("mouseup", handleFocus); }
+        document.addEventListener("click", handleFocus);
+        return () => { document.removeEventListener("click", handleFocus); }
     }, [htmlRef]);
     
     if ( location.pathname === "/Login" || 
@@ -49,9 +48,9 @@ const Header = () => {
                         <StyledLink to='/Login' >로그인</StyledLink>
                     </Div> 
                     :
-                    <Div ref={htmlRef} $justifycontent="center" width="30">
+                    <Div $justifycontent="center" width="30">
                         <p>{loginNickname}</p>
-                        <Img src={people} alt="imformation" onClick={handleOnToggle} />
+                        <Img ref={htmlRef} src={people} alt="imformation" onClick={handleOnToggle} />
                         {toggleImg ? <MyControl /> : null}
                     </Div>
             }

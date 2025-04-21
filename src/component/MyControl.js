@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const MyControl = () => {
+const MyControl = ({ setLoginStatus }) => {
 
     const handleOnClickLogout = () => {
         localStorage.clear();
@@ -9,8 +10,8 @@ const MyControl = () => {
 
     return (
         <Div>
-            <Span >내 정보</Span>
-            <Span >내가 쓴 글</Span>
+            <Span><StyledLink to="My">내 정보</StyledLink></Span>
+            <Span><StyledLink to="MyPost">내가 쓴 글</StyledLink></Span>
             <Span onClick={handleOnClickLogout}>로그아웃</Span>
         </Div>
     );
@@ -40,4 +41,8 @@ const Span = styled.span`
     }
 `;
 
+const StyledLink = styled(Link)`
+    color: white;
+    text-decoration: none;
+`
 export default MyControl;

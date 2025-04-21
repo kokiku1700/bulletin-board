@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setLoginStatus }) => {
     const [inputId, setInputId] = useState("");
     const [inputPw, setInputPw] = useState("");
     const navigate = useNavigate();
@@ -24,6 +24,7 @@ const Login = () => {
         .then(res => {
             if ( res.data.message === "success" ) {
                 localStorage.setItem(res.data.id, res.data.nickName);
+                setLoginStatus(1);
                 navigate("/");
             }
             console.log(res.data)
