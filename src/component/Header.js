@@ -17,7 +17,6 @@ const Header = ({ loginStatus }) => {
         	if (htmlRef.current && !htmlRef.current.contains(e.target)) {
                 setToggleImg(false)
             };
-            console.log(e.target)
         };
         document.addEventListener("click", handleFocus);
         return () => { document.removeEventListener("click", handleFocus); }

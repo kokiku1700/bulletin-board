@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const MyControl = ({ setLoginStatus }) => {
+    const navigate = useNavigate();
 
     const handleOnClickLogout = () => {
         localStorage.clear();
+        navigate("/");
         window.location.reload();
     }
 

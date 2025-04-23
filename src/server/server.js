@@ -127,6 +127,22 @@ app.get("/myData", (req,res) => {
     });
 });
 
+//닉네임 불러오기
+app.get("/nickNameGet", (req, res) => {
+    User.findOne({nickName: req.query.nickName})
+    .then(data => {
+        return res.status(200).json({data});
+    })
+})
+
+// 닉네임 수정
+app.post("/nickNameEdit", (req, res) => {
+    User.findOneAndUpdate({id: req.body.id}, {$set: {nickName: req.body.nickName}})
+    .then(data => {
+        return res.status(200).json({"message": "success"});
+    });
+});
+
 // 회원 탈퇴 하기
 app.delete("/deleteMem", async(req,res) => {
     await User.deleteOne({id: req.body.id})
