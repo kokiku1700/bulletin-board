@@ -1,4 +1,4 @@
-import BagelFatOne from "../fonts/BagelFatOne-Regular.ttf";
+import '../fonts/fonts.css';
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { breakPoints } from "../ease/media";
@@ -14,12 +14,6 @@ const Logo = () => {
 }
 
 const StyledLink = styled(Link)`
-    @font-face {
-        font-family: 'BagelFatOne-Regular';
-        src: url(${BagelFatOne}) format('woff2');
-        font-weight: normal;
-        font-style: normal;
-    }
 
     font-family: 'BagelFatOne-Regular';
     text-decoration: none;

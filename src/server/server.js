@@ -143,6 +143,14 @@ app.post("/nickNameEdit", (req, res) => {
     });
 });
 
+// 닉네임 수정 시 작성된 게시글 작성자 변경 
+app.post("/postWriterEdit", (req, res) => {
+    Board.updateMany({writer: req.body.before}, {$set: {writer: req.body.after}})
+    .then(data => {
+        return res.status(200).json({"message": "success"});
+    })
+})
+
 // 회원 탈퇴 하기
 app.delete("/deleteMem", async(req,res) => {
     await User.deleteOne({id: req.body.id})
@@ -167,6 +175,14 @@ app.get("/listFilter", (req, res) => {
     .then(board => {
         res.status(200).json({board});
     })
+});
+
+// 내가 작성한 게시글 가져오기
+app.get("/myPost", (req, res) => {
+    Board.find({writer: req.query.writer})
+    .then(post => {
+        return res.status(200).json({post});
+    });
 });
 
 // 게시글 개수 가져오기

@@ -59,7 +59,7 @@ const Div = styled.div`
 
 const MainDiv = styled.div`
     width: 70%;
-    margin: 0 2%;
+    margin: 0 auto;
 `;
 
 const StyledLink = styled(Link)`

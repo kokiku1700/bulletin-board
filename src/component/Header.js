@@ -64,7 +64,7 @@ const DivWrap = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-around;
-    border-bottom: 1px solid #999;
+    border-bottom: 2px solid #999;
 `;
 const Div = styled.div`
     width: ${props => props.width}%;
@@ -104,6 +104,7 @@ const StyledLink = styled(Link)`
 const Img = styled.img`
     width: 2.5vw;
     cursor: pointer;
+    margin: 0 3%;
 `
 
 export default Header;

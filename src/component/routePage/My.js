@@ -24,7 +24,7 @@ const My = ({ setLoginStatus }) => {
                 nickName: data.data.user.nickName,
                 id: data.data.user.id,
                 email: data.data.user.email,
-            })
+            });
         });
     }, []);
 
@@ -52,11 +52,19 @@ const My = ({ setLoginStatus }) => {
             });
             
             if ( nickNameCheck === "" ) {
+                await axios.post("http://localhost:4000/postWriterEdit", {before: nn, after: my.nickName})
+                .then(res => {
+                    console.log("success");
+                })
+                
                 await axios.post("http://localhost:4000/nickNameEdit", {id: my.id, nickName: my.nickName})
                 .then(res => {
-                    console.log(res.data);
+                    localStorage.setItem(my.id, my.nickName);
+                    window.location.reload();
                     setChangeStatus(!changeStatus);
-                })
+                });
+
+                
             } else {
                 if ( idCheck === my.id ) {
                     setChangeStatus(!changeStatus);
