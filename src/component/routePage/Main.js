@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import PostList from "../PostList";
 import { Link } from "react-router-dom";
+import { breakPoints } from "../../ease/media";
 
 const Main = ({ list }) => {
     const [postList, setPostList] = useState([]);
@@ -55,11 +56,18 @@ const Div = styled.div`
     min-height: 600px;
     display: flex;
 
+    @media ( max-width: ${breakPoints.desktop}) {
+        display: block;
+    }
 `;
 
 const MainDiv = styled.div`
     width: 70%;
     margin: 0 auto;
+    
+    @media ( max-width: ${breakPoints.desktop}) {
+        width: 100%;
+    }
 `;
 
 const StyledLink = styled(Link)`

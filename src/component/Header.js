@@ -5,6 +5,8 @@ import { breakPoints } from "../ease/media";
 import people from "../img/people.png";
 import MyControl from "./MyControl";
 import { useEffect, useRef, useState } from "react";
+import headerBg from "../img/headerBg.jpg";
+import '../fonts/fonts.css';
 
 const Header = ({ loginStatus }) => {
     const location = useLocation();
@@ -48,12 +50,11 @@ const Header = ({ loginStatus }) => {
                     </Div> 
                     :
                     <Div $justifycontent="center" width="30">
-                        <p>{loginNickname}</p>
+                        <P><Span>{loginNickname}</Span>님</P>
                         <Img ref={htmlRef} src={people} alt="imformation" onClick={handleOnToggle} />
                         {toggleImg ? <MyControl /> : null}
                     </Div>
             }
-            
         </DivWrap>
     )
 
@@ -64,7 +65,8 @@ const DivWrap = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-around;
-    border-bottom: 2px solid #999;
+    background: url(${headerBg});
+    background-size: cover;
 `;
 const Div = styled.div`
     width: ${props => props.width}%;
@@ -101,10 +103,28 @@ const StyledLink = styled(Link)`
     }
 `;
 
+const P = styled.p`
+    display: flex;
+    align-items: end;
+    font-size: 20px;
+    white-space: nowrap;
+`;
+
+const Span = styled.span`
+    font-family: 'HakgyoansimPuzzleTTF-Outline';
+    font-size: 26px;
+    margin-right: 3%;
+    text-shadow: -1px 0px #fff, 0px 1px #fff, 1px 0px #fff, 0px -1px #fff;
+`;
+
 const Img = styled.img`
-    width: 2.5vw;
+    width: 70px;
     cursor: pointer;
     margin: 0 3%;
-`
+
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 60px
+    }
+`;
 
 export default Header;

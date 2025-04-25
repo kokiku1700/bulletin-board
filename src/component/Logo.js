@@ -20,7 +20,7 @@ const StyledLink = styled(Link)`
     font-size: 3.7vw;
     margin: 0 5%;
     color: violet;
-    text-shadow: 2px 2px 0 #999;
+    text-shadow: -3px 0px #fff, 0px 3px #fff, 3px 0px #fff, 0px -3px #fff;
     
     &:hover {
         color: #FD65E9;
