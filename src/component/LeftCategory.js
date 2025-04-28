@@ -5,7 +5,7 @@ import { breakPoints } from "../ease/media";
 const LeftCategory = ({ list, setFilter }) => {
     const [colorNum, setColorNum] = useState(0);
 
-    const handleOnfilter = (e, i) => {
+    const handleOnfilter = (e) => {
         setFilter(list[e.target.value]);
         setColorNum(e.target.value);
     };

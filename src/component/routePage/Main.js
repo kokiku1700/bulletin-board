@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import PostList from "../PostList";
 import { Link } from "react-router-dom";
 import { breakPoints } from "../../ease/media";
+import "../../fonts/fonts.css";
 
 const Main = ({ list }) => {
     const [postList, setPostList] = useState([]);
@@ -62,7 +63,7 @@ const Div = styled.div`
 `;
 
 const MainDiv = styled.div`
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     
     @media ( max-width: ${breakPoints.desktop}) {
@@ -77,7 +78,7 @@ const StyledLink = styled(Link)`
 
 const Table = styled.table`
     width: 100%;
-    padding: .5% 0;
+    padding: 1% 0;
     border-bottom: 1px solid #ccc;
 `;
 
@@ -91,6 +92,7 @@ const Tr = styled.tr`
 
 const Th = styled.th`
     width: ${props => props.$width};
+    font-family: 'NEXON Lv1 Gothic Bold';
 `;
 
 export default Main;

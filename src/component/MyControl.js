@@ -20,17 +20,16 @@ const MyControl = ({ setLoginStatus }) => {
 };
 
 const Div = styled.div`
-    width: 8%;
+    width: 140px;
     position: absolute;
-    top: 9%;
-    right: 10.5%;
+    top: 80%;
 `;
 
 const Span = styled.span`
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding: 3% 0;
+    padding: 4% 0;
     cursor: pointer;
     background: violet;
     color: white;

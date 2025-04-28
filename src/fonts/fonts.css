@@ -18,3 +18,17 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic Bold';
+    src: url('../fonts/NEXONLv1GothicBold.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic Regular';
+    src: url('../fonts/NEXONLv1GothicRegular.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

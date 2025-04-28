@@ -49,7 +49,7 @@ const Header = ({ loginStatus }) => {
                         <StyledLink to='/Login' >로그인</StyledLink>
                     </Div> 
                     :
-                    <Div $justifycontent="center" width="30">
+                    <Div $justifycontent="center" width="30" $position="relative">
                         <P><Span>{loginNickname}</Span>님</P>
                         <Img ref={htmlRef} src={people} alt="imformation" onClick={handleOnToggle} />
                         {toggleImg ? <MyControl /> : null}
@@ -73,6 +73,7 @@ const Div = styled.div`
     display: flex;
     justify-content: ${props => props.$justifycontent};
     align-items: center;
+    position: ${props => props.$position};
 `;
 
 const StyledLink = styled(Link)`
