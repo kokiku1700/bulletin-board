@@ -20,7 +20,7 @@ const PostList = ({ postList, idx }) => {
             <Table>
                 <Tbody>
                     <Tr>
-                        <Td width="10%" >{idx + 1}</Td>
+                        <Td width="10%" >{idx}</Td>
                         <Td width="10%" >{postList.category}</Td>
                         <Td width="45%" >
                             <TdDiv>

@@ -8,8 +8,8 @@ import IdSearch from './component/routePage/IdSearch';
 import PwSearch from './component/routePage/PwSearch';
 import JoinMem from './component/routePage/JoinMem';
 import Success from './component/routePage/Success';
-import ThemeChange from './component/ThemeChange';
-import Write from './component/Write';
+import ThemeChangeBtn from './component/ThemeChangeBtn';
+import WriteBtn from './component/WriteBtn';
 import PostWrite from './component/routePage/PostWrite';
 import PostEdit from './component/routePage/PostEdit';
 import Post from './component/routePage/Post';
@@ -36,8 +36,10 @@ function App() {
         <Route path='/My' element={<My setLoginStatus={setLoginStatus} />} />
         <Route path='/MyPost' element={<MyPost />} />
       </Routes>
-      <ThemeChange />
-      <Write />
+      <div className='btnWrap'>
+        <WriteBtn />
+        <ThemeChangeBtn />
+      </div>
     </div>
   );
 }

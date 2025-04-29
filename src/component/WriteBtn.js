@@ -27,9 +27,6 @@ const Write = () => {
 };
 
 const Img = styled.img`
-    position: fixed;
-    bottom: 12.5%;
-    right: 2.5%;
     width: 2.7vw;
     border: 2px solid #000;
     border-radius: 50%;
