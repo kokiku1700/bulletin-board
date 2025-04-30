@@ -11,43 +11,36 @@ const Main = ({ list }) => {
     const [filter, setFilter] = useState("전체");
     const [listLength, setListLength] = useState(0);
     const [num, setNum] = useState(0);
-    
+    const [arr, setArr] = useState([]);
+
+    // 왼 쪽 카테고리 중 하나 클릭 시 
+    // 해당 카테고리에 맞는 게시글 분류
+    // 분류한 카테고리를 10개 씩 보여준다. 
     useEffect(() => {
         if ( filter !== "전체" ) {
             axios.get("http://localhost:4000/listFilter", {params: {category: filter}})
             .then(res => {
                 setPostList([...res.data.board]);
                 setListLength(Math.ceil(res.data.board.length / 10));                
+                setNum(0);
             });
         } else {
             axios.get("http://localhost:4000/list")
             .then(res => {
                 setPostList([...res.data.board]);
                 setListLength(Math.ceil(res.data.board.length / 10)); 
+                setNum(0);
             });
         }
+        setArr(new Array(listLength).fill(0));
     }, [filter]);
+
+    useEffect(() => {
+        setArr(new Array(listLength).fill(0));
+    }, [listLength]);
 
     const onClickNum = (e) => {
         setNum(e.target.value);
-    };
-
-    const listTenCount = () => {
-        let result = [];
-
-        for ( let i = 1; i <= listLength; i++ ) {
-            result.push(
-                <Button onClick={onClickNum}
-                        key={i} 
-                        value={i - 1}
-                        $boxShadow="2px 2px 4px violet"
-                        >
-                            {i}
-                </Button>
-            );
-        };
-
-        return result;
     };
 
 
@@ -68,7 +61,18 @@ const Main = ({ list }) => {
                 </Table>
                 <PostListWrap postList={postList} num={num} />
                 <ButtonWrap>
-                    {listTenCount()}
+                    {arr.map((e, i) => (
+                        <Button onClick={onClickNum}
+                                key={i} 
+                                value={i}
+                                $boxShadow={Number(num) === i ? "3px 3px 2px violet inset" : "3px 3px 2px violet"}
+                                $fontWeight={Number(num) === i ? "bold" : ""}
+                                color={Number(num) === i ? "violet" : "violet"}
+                                background={Number(num) === i ? "rgb(253,245,254)" : "white"}
+                                >
+                                    {i + 1}
+                        </Button>
+                    ))}
                 </ButtonWrap>
             </MainDiv>
         </Div>
@@ -78,9 +82,8 @@ const Main = ({ list }) => {
 const Div = styled.div`
     width: 100%;
     height: 100%;
-    min-height: 600px;
     display: flex;
-
+    
     @media ( max-width: ${breakPoints.desktop}) {
         display: block;
     }
@@ -90,10 +93,24 @@ const MainDiv = styled.div`
     width: 80%;
     margin: 0 auto;
     position: relative;
+    height: 100%;
+    min-height: 600px;    
+
+    @media ( max-width: ${breakPoints.big}) {
+        min-height: 520px;
+    }
+
+    @media ( max-width: ${breakPoints.largeDesktop}) {
+        min-height: 490px;
+    }
 
     @media ( max-width: ${breakPoints.desktop}) {
         width: 100%;
+        min-height: 490px;
     }
+
+    
+
 `;
 
 const Table = styled.table`
@@ -117,20 +134,33 @@ const Th = styled.th`
 
 const ButtonWrap = styled.div`
     position: absolute;
-    bottom: -5%;
+    left: 1%;
+    bottom: -6%;
     width: 100%;
     display: flex;
+
+    @media( max-width: ${breakPoints.desktop}) {
+        left: 0;
+        bottom: -8.5%;
+        justify-content: center;
+    }
 `;
 
 const Button = styled.button`
     margin: 0 .4%;
     padding: .5% .8%;
     border: none;
-    background: white;
+    background: ${props => props.background};
     border-radius: 5px;
-    color: black;
+    color: ${props => props.color};
     cursor: pointer;
     box-shadow: ${props => props.$boxShadow};
+    font-weight: ${props => props.$fontWeight};
+
+    @media( max-width: ${breakPoints.desktop}) {
+        margin: 0 .7%;
+        padding: .7% 1.2%;
+    }
 `;
 
 export default Main;

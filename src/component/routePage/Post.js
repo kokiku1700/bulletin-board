@@ -30,7 +30,7 @@ const Post = () => {
         <DivWrap>
             <H1>{post.title}</H1>
             <Div>
-                <H6>{post.writer}</H6>
+                <H6>작성자 : {post.writer}</H6>
                 <H6>{post.date}</H6>
                 <Button $buttonStatus={buttonStatus}>
                     <StyledLink to={`/PostEdit/${id}`}>수정</StyledLink>
@@ -45,25 +45,30 @@ const Post = () => {
 };
 
 const DivWrap = styled.div`
-    width: 100%;
+    width: 85%;
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
+`;
+
+const H1 = styled.h1`
+    margin-top: 1%;
+    padding: 1% 1%;
+    border-bottom: 3px solid violet;
 `;
 
 const Div = styled.div`
     display: flex;
-`;
-
-const H1 = styled.h1`
-    border-bottom: 3px solid violet;
+    padding: 1% 0;
 `;
 
 const H6 = styled.h6`
-
+    font-size: 17px;
+    padding-left: 1%;
 `;
 
 const P = styled.p`
-    padding: 2%;
+    padding: 1%;
     border: 1px solid violet;
 `;
 
