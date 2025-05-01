@@ -62,7 +62,7 @@ const Li = styled.li`
     box-shadow: ${props => props.$boxShadow};
     border-radius: 5px;
     font-size: 20px;
-    font-family: 'EF_jejudoldam';
+    font-family: 'NEXON Lv1 Gothic Bold';
 
     @media ( max-width: ${breakPoints.desktop}) {
         margin: 1% 0;

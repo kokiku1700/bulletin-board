@@ -4,10 +4,10 @@ import { useState } from "react";
 import axios from "axios";
 
 const PostWrite = ({ list }) => {
-
+    const newList = list.slice(1);
     const [write, setWrite] = useState({
         title: "",
-        category: "",
+        category: newList[0],
         content: "",
         writer: localStorage.getItem(localStorage.key(0)),
         date: "",
@@ -41,15 +41,18 @@ const PostWrite = ({ list }) => {
         navigate(-1);
     };
 
+    const onClick = () => {
+        console.log(write.category);
+    };
     return (
-        <Div>
+        <Div onClick={onClick}>
             <DivWrap>
                 <Wrap>
                     <Input name="title" type="text" value={write.title} onChange={handleOnChange} placeholder="제목을 입력해주세요." />
                 </Wrap>
                 <Wrap>
                     <Select name="category" onChange={handleOnChange} value={write.category}>
-                        {list.map((e, i) => (
+                        {newList.map((e, i) => (
                             <Option value={e} key={i}>{e}</Option>
                         ))}
                     </Select>
@@ -88,7 +91,7 @@ const Input = styled.input`
     padding: 1.5%;
     border-radius: 10px;
     font-size: 1.2vw;
-    background: #eee;
+    background: rgb(253,245,254);
     
     &:focus {
         outline: none;
@@ -97,14 +100,25 @@ const Input = styled.input`
 
 const Select = styled.select`
     width: 20%;
+    margin-left: 1%;
     padding: 1% 0;
     font-size: .8vw;
+    border: none;
     border-radius: 5px;
+    box-shadow: 1px 1px 3px violet;
+    background: rgb(253,245,254);
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 const Option = styled.option`
     text-align: center;
     font-size: .8vw;
+    cursor: pointer;
+    border: none;
+    background: rgb(253,245,254);
 `;
 
 const TextArea = styled.textarea`
@@ -112,7 +126,9 @@ const TextArea = styled.textarea`
     padding: 1%;
     font-size: .8vw;
     resize: none;
-
+    border: 1px solid violet;
+    border-radius: 5px;
+    
     &:focus {
         outline: none;
     }

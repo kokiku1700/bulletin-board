@@ -33,7 +33,7 @@ const Main = ({ list }) => {
             });
         }
         setArr(new Array(listLength).fill(0));
-    }, [filter]);
+    }, [filter, listLength]);
 
     useEffect(() => {
         setArr(new Array(listLength).fill(0));
@@ -68,7 +68,7 @@ const Main = ({ list }) => {
                                 $boxShadow={Number(num) === i ? "3px 3px 2px violet inset" : "3px 3px 2px violet"}
                                 $fontWeight={Number(num) === i ? "bold" : ""}
                                 color={Number(num) === i ? "violet" : "violet"}
-                                background={Number(num) === i ? "rgb(253,245,254)" : "white"}
+                                $background={Number(num) === i ? "rgb(253,245,254)" : "white"}
                                 >
                                     {i + 1}
                         </Button>
@@ -144,22 +144,35 @@ const ButtonWrap = styled.div`
         bottom: -8.5%;
         justify-content: center;
     }
+    @media( max-width: ${breakPoints.big}) {
+        left: 1%;
+        bottom: -9%;
+    }
 `;
 
 const Button = styled.button`
     margin: 0 .4%;
     padding: .5% .8%;
     border: none;
-    background: ${props => props.background};
+    background: ${props => props.$background};
     border-radius: 5px;
     color: ${props => props.color};
     cursor: pointer;
     box-shadow: ${props => props.$boxShadow};
     font-weight: ${props => props.$fontWeight};
+    font-family: 'NEXON Lv1 Gothic Regular';
 
     @media( max-width: ${breakPoints.desktop}) {
         margin: 0 .7%;
         padding: .7% 1.2%;
+    }
+    @media( max-width: ${breakPoints.largeDesktop}) {
+        margin: 0 .7%;
+        padding: .8% 1.4%;
+    }
+    @media( max-width: ${breakPoints.big}) {
+        margin: 0 .7%;
+        padding: .7% 1.4%;
     }
 `;
 

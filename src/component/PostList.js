@@ -95,6 +95,7 @@ const Span = styled.span`
     display: ${props => props.$display};
     color: violet;
     margin-left: 1%;
+    font-family: 'NEXON Lv1 Gothic Bold';
     animation: ${blink} 3s infinite;
 `
 
