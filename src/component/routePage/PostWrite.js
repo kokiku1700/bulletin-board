@@ -91,6 +91,7 @@ const Input = styled.input`
     padding: 1.5%;
     border-radius: 10px;
     font-size: 1.2vw;
+    font-family: 'NEXON Lv1 Gothic Regular';
     background: rgb(253,245,254);
     
     &:focus {
@@ -106,6 +107,8 @@ const Select = styled.select`
     border: none;
     border-radius: 5px;
     box-shadow: 1px 1px 3px violet;
+    color: violet;
+    font-family: 'NEXON Lv1 Gothic Bold';
     background: rgb(253,245,254);
 
     &:focus {
@@ -117,24 +120,31 @@ const Option = styled.option`
     text-align: center;
     font-size: .8vw;
     cursor: pointer;
-    border: none;
+    font-family: 'NEXON Lv1 Gothic Bold';
     background: rgb(253,245,254);
+
+    &:hover{
+    background: violet;
+    }
 `;
 
 const TextArea = styled.textarea`
+    width: 100%;
     margin-top: 1%;
     padding: 1%;
     font-size: .8vw;
     resize: none;
     border: 1px solid violet;
     border-radius: 5px;
-    
+    font-family: 'NEXON Lv1 Gothic Regular';
+
     &:focus {
         outline: none;
     }
 `
 
 const Button = styled.button`
+    width: 10%;
     padding: 1.5% 2.5%;
     border: none;
     border-radius: 5px;
@@ -143,6 +153,7 @@ const Button = styled.button`
     color: white;
     font-size: .9vw;
     cursor: pointer;
+    font-family: 'NEXON Lv1 Gothic Regular';
 
     &:hover {
         background: #fc54e3;
