@@ -12,6 +12,7 @@ const MyControl = ({ setLoginStatus }) => {
 
     return (
         <Div>
+            <Span><StyledLink to="PostWrite">글쓰기</StyledLink></Span>
             <Span><StyledLink to="My">내 정보</StyledLink></Span>
             <Span><StyledLink to="MyPost">내가 쓴 글</StyledLink></Span>
             <Span onClick={handleOnClickLogout}>로그아웃</Span>
@@ -32,10 +33,11 @@ const Span = styled.span`
     text-align: center;
     padding: 4% 0;
     cursor: pointer;
-    background: violet;
-    color: white;
+    background: white;
+    color: violet;
     margin: 2% 0;
     border-radius: 5px;
+    box-shadow: 2px 2px 2px violet;
 
     &:hover {
         background: pink;
@@ -44,7 +46,7 @@ const Span = styled.span`
 `;
 
 const StyledLink = styled(Link)`
-    color: white;
+    color: violet;
     text-decoration: none;
 `
 export default MyControl;

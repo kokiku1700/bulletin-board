@@ -65,10 +65,10 @@ const Main = ({ list }) => {
                         <Button onClick={onClickNum}
                                 key={i} 
                                 value={i}
-                                $boxShadow={Number(num) === i ? "3px 3px 2px violet inset" : "3px 3px 2px violet"}
+                                $boxShadow={Number(num) === i ? "1.5px 1.5px 2px black inset" : "1.5px 1.5px 2px black"}
                                 $fontWeight={Number(num) === i ? "bold" : ""}
-                                color={Number(num) === i ? "violet" : "violet"}
-                                $background={Number(num) === i ? "rgb(253,245,254)" : "white"}
+                                color={Number(num) === i ? "black" : "black"}
+                                $background={Number(num) === i ? "#eee" : "white"}
                                 >
                                     {i + 1}
                         </Button>
