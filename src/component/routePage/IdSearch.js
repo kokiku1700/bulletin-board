@@ -3,6 +3,7 @@ import Logo from "../Logo";
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { breakPoints } from "../../ease/media";
 
 const IdSearch = () => {
     const [search, setSearch] = useState({
@@ -68,6 +69,16 @@ const Div = styled.div`
     flex-direction: column;
     align-items: center;
     padding-top: 5%;
+
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        margin-top: 5%;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        margin-top: 12%;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        margin-top: 17%;
+    }
 `;
 
 const InputDiv = styled.div`
@@ -81,6 +92,22 @@ const InputDiv = styled.div`
     padding-bottom: 5%;
     margin-top: 5%;
     border: 2px solid violet;
+
+    @media (max-width: ${breakPoints.big}) {
+            width: 45vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 50vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 60vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 70vw;
+    }
+    @media (max-width: ${breakPoints.mobile}) {
+        width: 60vw;
+    }
 `
 
 const InputWrap = styled.div`
@@ -93,23 +120,48 @@ const InputWrap = styled.div`
 const Span = styled.span`
     margin-top: 6%;
     margin-left: 1.5%;
+    font-family: 'NEXON Lv1 Gothic Regular';
+
+    @media (max-width: ${breakPoints.big}) {
+        margin-left: 10%;
+    }
 `;
 
 const Input = styled.input`
+    width: 20vw;
     border: none;
     border-bottom: 1px solid #aaa;
     width: 100%;
-    margin: 3% 0;
+    margin: 3% auto;
     padding: 2% 1%;
     font-size: 1vw;
-
+    font-family: 'NEXON Lv1 Gothic Regular';
+    
     &:focus {
         outline: none;
         border-bottom: 2px solid violet;
     }
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 25vw;
+        font-size: 1.3vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 30vw;
+        font-size: 1.5vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 35vw;
+        font-size: 1.8vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 40vw;
+        font-size: 2.1vw;
+    }
 `;
 
 const Button = styled.button`
+    width:20.5vw;
     margin-top: 5%;
     padding: 2.2% 6%;
     background: violet;
@@ -117,10 +169,33 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 1vw;
+    font-family: 'NEXON Lv1 Gothic Regular';
+
+    &:hover {
+        background: #FD65E9;
+    }
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 25.5vw;
+        font-size: 1.3vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 30.5vw;
+        font-size: 1.5vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 35.5vw;
+        font-size: 1.8vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 40.5vw;
+        font-size: 2.1vw;
+    }
 `;
 
 const StyledLink = styled(Link)`
+    width: 10.5vw;
     padding: 1.5% 7%;
     background: violet;
     border: none;
@@ -129,5 +204,28 @@ const StyledLink = styled(Link)`
     font-size: 1.2vw;
     text-decoration: none;
     margin-top: 10%;
+    text-align: center;
+    font-family: 'NEXON Lv1 Gothic Regular';
+
+    &:hover {
+        background: #FD65E9;
+    }
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 10.5vw;
+        font-size: 1.3vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 14.5vw;
+        font-size: 1.5vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 18.5vw;
+        font-size: 1.8vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 20.5vw;
+        font-size: 2.1vw;
+    }
 `;   
 export default IdSearch;

@@ -3,6 +3,7 @@ import Logo from "../Logo";
 import { useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { breakPoints } from "../../ease/media";
 
 const JoinMem = () => {
     // input에 입력한 정보들을 저장장
@@ -461,11 +462,13 @@ const JoinMem = () => {
 const DivWrap = styled.div`
     width: 75vw;
     margin: 0 auto;
-    margin-top: 5%;
+    padding-top: 5%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    
 `;
 
 const Div = styled.div`
@@ -475,8 +478,25 @@ const Div = styled.div`
     flex-direction: column;
     width: 45%;
     border: 2px solid violet;
+    border-radius: 5px;
     margin-top: 1%;
     padding: 2%;
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 55%;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 65%;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 75%;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 90%;
+    }
+    @media (max-width: ${breakPoints.mobile}) {
+        width: 95%;
+    }
 `;
 
 const InputWrap = styled.div`
@@ -485,6 +505,19 @@ const InputWrap = styled.div`
     flex-direction: column;
     width: 85%;
     margin-bottom: 3%;
+
+    @media (max-width: ${breakPoints.big}) {
+        margin-bottom: 4%;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        margin-bottom: 5%;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        margin-bottom: 6%;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        margin-bottom: 7%;
+    }
 `;
 
 const Span = styled.span`
@@ -509,7 +542,7 @@ const Input = styled.input`
     border: none;
     padding: 1% 2%;
     border-bottom: ${props => props.$borderSize} solid ${props => props.color};
-    font-size: 1vw;
+    font-size: 16px;
     color: ${props => props.color};
 
     &:focus {
@@ -533,6 +566,29 @@ const Button = styled.button`
     border-radius: 5px;
     cursor: pointer;
     padding: 1.5% 4%;
+    width: 25.5vw;
+
+    &:hover {
+        background: #FD65E9;
+    }
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 25.5vw;
+        font-size: 1.3vw;
+        padding: 2.5% 4%;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 30.5vw;
+        font-size: 1.5vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 35.5vw;
+        font-size: 1.8vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 40.5vw;
+        font-size: 2.1vw;
+    }
 `
 
 export default JoinMem;

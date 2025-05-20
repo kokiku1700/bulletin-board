@@ -45,7 +45,7 @@ const PostEdit = ({ list }) => {
 
             await axios.put("http://localhost:4000/postEdit", write)
             .then(res => {
-                navigate("/", { replace: true });
+                navigate(-1);
             })
             .catch(err => {
                 console.log(err);
@@ -73,7 +73,7 @@ const PostEdit = ({ list }) => {
                     <TextArea name="content" value={write.content} onChange={handleOnChange} cols="150" rows="30" placeholder="내용을 입력해주세요." />
                 </Wrap>
                 <Wrap $justifyContent="center">
-                    <Button onClick={handleOnSubmit}>작성하기</Button>
+                    <Button onClick={handleOnSubmit}>수정하기</Button>
                     <Button onClick={handleOnCancel}>취소</Button>
                 </Wrap>
             </DivWrap>
@@ -102,8 +102,9 @@ const Input = styled.input`
     width: 100%;
     padding: 1.5%;
     border-radius: 10px;
-    font-size: 1.2vw;
-    background: #eee;
+    font-size: 18px;
+    font-family: 'NEXON Lv1 Gothic Regular';
+    background: rgb(253,245,254);
     
     &:focus {
         outline: none;
@@ -113,20 +114,31 @@ const Input = styled.input`
 const Select = styled.select`
     width: 20%;
     padding: 1% 0;
-    font-size: .8vw;
+    font-size: 16px;
+    border: none;
     border-radius: 5px;
+    box-shadow: 1px 1px 3px violet;
+    color: violet;
+    font-family: 'NEXON Lv1 Gothic Bold';
+    background: rgb(253,245,254);
 `;
 
 const Option = styled.option`
     text-align: center;
-    font-size: .8vw;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'NEXON Lv1 Gothic Bold';
+    background: rgb(253,245,254);
 `;
 
 const TextArea = styled.textarea`
     margin-top: 1%;
     padding: 1%;
-    font-size: .8vw;
+    font-size: 16px;
     resize: none;
+    border: 1px solid violet;
+    border-radius: 5px;
+    font-family: 'NEXON Lv1 Gothic Regular';
 
     &:focus {
         outline: none;
@@ -134,13 +146,14 @@ const TextArea = styled.textarea`
 `
 
 const Button = styled.button`
+    width: 25%;
     padding: 1.5% 2.5%;
     border: none;
     border-radius: 5px;
     margin: 1%;
     background: violet;
     color: white;
-    font-size: .9vw;
+    font-size: 16px;
     cursor: pointer;
 
     &:hover {

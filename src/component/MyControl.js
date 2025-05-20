@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 
-const MyControl = ({ setLoginStatus }) => {
+const MyControl = () => {
     const navigate = useNavigate();
 
     const handleOnClickLogout = () => {
@@ -15,7 +15,7 @@ const MyControl = ({ setLoginStatus }) => {
             <Span><StyledLink to="PostWrite">글쓰기</StyledLink></Span>
             <Span><StyledLink to="My">내 정보</StyledLink></Span>
             <Span><StyledLink to="MyPost">내가 쓴 글</StyledLink></Span>
-            <Span onClick={handleOnClickLogout}>로그아웃</Span>
+            <Span onClick={handleOnClickLogout}><StyledLink>로그아웃</StyledLink></Span>
         </Div>
     );
 };
@@ -31,7 +31,6 @@ const Span = styled.span`
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding: 4% 0;
     cursor: pointer;
     background: white;
     color: violet;
@@ -48,5 +47,6 @@ const Span = styled.span`
 const StyledLink = styled(Link)`
     color: violet;
     text-decoration: none;
+    padding: 4% 0;
 `
 export default MyControl;

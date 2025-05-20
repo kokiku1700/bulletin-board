@@ -90,7 +90,7 @@ const Input = styled.input`
     width: 100%;
     padding: 1.5%;
     border-radius: 10px;
-    font-size: 1.2vw;
+    font-size: 18px;
     font-family: 'NEXON Lv1 Gothic Regular';
     background: rgb(253,245,254);
     
@@ -103,7 +103,7 @@ const Select = styled.select`
     width: 20%;
     margin-left: 1%;
     padding: 1% 0;
-    font-size: .8vw;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     box-shadow: 1px 1px 3px violet;
@@ -118,7 +118,7 @@ const Select = styled.select`
 
 const Option = styled.option`
     text-align: center;
-    font-size: .8vw;
+    font-size: 16px;
     cursor: pointer;
     font-family: 'NEXON Lv1 Gothic Bold';
     background: rgb(253,245,254);
@@ -132,7 +132,7 @@ const TextArea = styled.textarea`
     width: 100%;
     margin-top: 1%;
     padding: 1%;
-    font-size: .8vw;
+    font-size: 16px;
     resize: none;
     border: 1px solid violet;
     border-radius: 5px;
@@ -144,20 +144,22 @@ const TextArea = styled.textarea`
 `
 
 const Button = styled.button`
-    width: 10%;
+    width: 25%;
     padding: 1.5% 2.5%;
     border: none;
     border-radius: 5px;
     margin: 1%;
     background: violet;
     color: white;
-    font-size: .9vw;
+    font-size: 16px;
     cursor: pointer;
     font-family: 'NEXON Lv1 Gothic Regular';
 
     &:hover {
         background: #fc54e3;
     }
+
+
 `;
 
 export default PostWrite;

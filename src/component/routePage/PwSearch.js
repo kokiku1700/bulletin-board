@@ -3,6 +3,7 @@ import Logo from "../Logo";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { breakPoints } from "../../ease/media";
 
 const PwSearch = () => {
     const [search, setSearch] = useState({
@@ -114,11 +115,11 @@ const PwSearch = () => {
                 {bool 
                     ? <>
                         <InputWrap>
-                            <Span>비밀번호<P $display={visibleP.vPassword.visible}>{visibleP.vPassword.content}</P></Span>
+                            <Span>새 비밀번호<P $display={visibleP.vPassword.visible}>{visibleP.vPassword.content}</P></Span>
                             <Input type="password" name="password" value={search.password} onChange={handleOnChange} onBlur={handleOnBlur} />
                         </InputWrap>
                         <InputWrap>
-                            <Span>비밀번호 확인<P $display={visibleP.vPasswordCheck.visible}>{visibleP.vPasswordCheck.content}</P></Span>
+                            <Span>새 비밀번호 확인<P $display={visibleP.vPasswordCheck.visible}>{visibleP.vPasswordCheck.content}</P></Span>
                             <Input type="password" name="passwordCheck" value={search.passwordCheck} onChange={handleOnChange}  onBlur={handleOnBlur}  />
                         </InputWrap>
 
@@ -146,6 +147,16 @@ const Div = styled.div`
     flex-direction: column;
     align-items: center;
     padding-top: 5%;
+
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        margin-top: 5%;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        margin-top: 12%;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        margin-top: 17%;
+    }
 `;
 
 const InputDiv = styled.div`
@@ -159,6 +170,22 @@ const InputDiv = styled.div`
     padding-bottom: 5%;
     margin-top: 5%;
     border: 2px solid violet;
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 45vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 50vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 60vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 70vw;
+    }
+    @media (max-width: ${breakPoints.mobile}) {
+        width: 60vw;
+    }
 `
 
 const InputWrap = styled.div`
@@ -171,6 +198,11 @@ const InputWrap = styled.div`
 const Span = styled.span`
     margin-top: 6%;
     margin-left: 1.5%;
+    font-family: 'NEXON Lv1 Gothic Regular';
+
+    @media (max-width: ${breakPoints.big}) {
+        margin-left: 10%;
+    }
 `;
 
 const P = styled.p`
@@ -178,19 +210,38 @@ const P = styled.p`
     margin-top: 2%;
     color: red;
     font-size: 13px;
+    font-family: 'NEXON Lv1 Gothic Regular';
 `
 
 const Input = styled.input`
     border: none;
     border-bottom: 1px solid #aaa;
     width: 100%;
-    margin: 3% 0;
+    margin: 3% auto;
     padding: 2% 1%;
     font-size: 1vw;
-
+    font-family: 'NEXON Lv1 Gothic Regular';
+    
     &:focus {
         outline: none;
         border-bottom: 2px solid violet;
+    }
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 25vw;
+        font-size: 1.3vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 30vw;
+        font-size: 1.5vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 35vw;
+        font-size: 1.8vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 40vw;
+        font-size: 2.1vw;
     }
 `;
 
@@ -202,7 +253,28 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
+    font-family: 'NEXON Lv1 Gothic Regular';
+    
+    &:hover {
+        background: #FD65E9;
+    }
+
+    @media (max-width: ${breakPoints.big}) {
+        width: 25.5vw;
+        font-size: 1.3vw;
+    }
+    @media (max-width: ${breakPoints.largeDesktop}) {
+        width: 30.5vw;
+        font-size: 1.5vw;
+    }
+    @media (max-width: ${breakPoints.desktop}) {
+        width: 35.5vw;
+        font-size: 1.8vw;
+    }
+    @media (max-width: ${breakPoints.tablet}) {
+        width: 40.5vw;
+        font-size: 2.1vw;
+    }
 `;
 
 export default PwSearch;

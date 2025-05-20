@@ -63,7 +63,6 @@ const Div = styled.div`
     width: 75vw;
     margin: 0 auto;
     padding-top: 5%;
-
     
     @media (max-width: ${breakPoints.largeDesktop}) {
         margin-top: 5%;
@@ -122,6 +121,7 @@ const Input = styled.input`
     border-bottom: 1px solid #aaa;
     color: black;
     font-size: 1vw;
+    font-family: 'NEXON Lv1 Gothic Regular';
 
     &:focus {
         outline: none;
@@ -156,6 +156,7 @@ const Button = styled.button`
     background: violet;
     color: white;
     cursor: pointer;
+    font-family: 'NEXON Lv1 Gothic Regular';
 
     &:hover {
         background: #FD65E9;
@@ -183,6 +184,7 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     color: black;
     margin: 0 1%;
+    font-family: 'NEXON Lv1 Gothic Regular';
 
     &:hover {
     color: violet;
@@ -192,5 +194,6 @@ const StyledLink = styled(Link)`
 const Span = styled.span`
     cursor: default;
     opacity: .2;
+    font-family: 'NEXON Lv1 Gothic Regular';
 `
 export default Login;

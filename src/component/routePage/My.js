@@ -15,8 +15,8 @@ const My = ({ setLoginStatus }) => {
         email: "",
     });
     const [changeStatus, setChangeStatus] = useState(true);
-
     const navigate = useNavigate();
+    const [errStatus, setErrStatus] = useState(false);
 
     useEffect(() => {
         axios.get("http://localhost:4000/myData", {params: {id: keys}})
@@ -64,20 +64,18 @@ const My = ({ setLoginStatus }) => {
                     localStorage.setItem(my.id, my.nickName);
                     window.location.reload();
                     setChangeStatus(!changeStatus);
+                    setErrStatus(false);
                 });
-
                 
             } else {
                 if ( idCheck === my.id ) {
                     setChangeStatus(!changeStatus);
+                    setErrStatus(false);
                 } else {
-                    console.log("존재하는 닉네임");
+                    setErrStatus(true);
                 }
             }
-
-
         }
-        console.log("gsgd")
     };
 
     const changeNickNameValue = (e) => {
@@ -85,7 +83,6 @@ const My = ({ setLoginStatus }) => {
             ...my,
             nickName: e.target.value
         });
-        console.log(my.nickName)
     };
 
     const hadleOnDeleteMem = async() => {
@@ -117,7 +114,7 @@ const My = ({ setLoginStatus }) => {
                     <Button onClick={changeNickName}>확인</Button>
                 </Div>
             }
-            <P>존재하는 닉네임입니다.</P>
+            <P display={errStatus ? "block" : "none"}>존재하는 닉네임입니다.</P>
             <Div>
                 <H3>아이디</H3>
                 <Span>{my.id}</Span>
@@ -148,18 +145,18 @@ const DivWrap = styled.div`
 
     width: 50%;
     margin: 0 auto;
-    margin-top: 5%;
+    margin-top: 6%;
     border: 2px solid violet;
     border-radius: 10px;
 
 
     @media (max-width: ${breakPoints.big}) {
         width: 60%;
-
+        margin-top: 10%;
     }
     @media (max-width: ${breakPoints.desktop}) {
         width: 70%;
-
+        margin-top: 15%;
     }
     
 
@@ -169,7 +166,6 @@ const Div = styled.div`
     display: flex;
     align-items: center;
     padding: 4% 3%;
-    display: flex;
 `;
 
 const H3 = styled.h3`
@@ -198,6 +194,7 @@ const Input = styled.input`
 `;
 
 const P = styled.p`
+    display: ${props => props.display};
     font-family: 'NEXON Lv1 Gothic Regular';
     color: red;
     margin: 0 5%;
